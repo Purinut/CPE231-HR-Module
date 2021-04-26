@@ -14,7 +14,6 @@ CREATE TABLE `agency_info` (
   PRIMARY KEY (`Agency_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG000', 'Torphy, Monahan and ', 'treutel.filomena@steuber.org', '064831805');
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG001', 'Weissnat-Grimes', 'kautzer.verona@shanahan.info', '031707012');
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG002', 'O\'Conner PLC', 'anolan@block.com', '025444305');
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG003', 'Medhurst-Lemke', 'emery.keebler@hills.com', '075632092');
@@ -24,5 +23,5 @@ INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_T
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG007', 'Erdman Ltd', 'ebony.oberbrunner@luettgen.com', '049800783');
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG008', 'Tremblay LLC', 'smith.kyler@quitzonbeahan.com', '001829289');
 INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG009', 'Wintheiser-Jones', 'wswaniawski@ferry.net', '041026282');
-
+INSERT INTO `agency_info` (`Agency_ID`, `Agency_Name`, `Agency_Email`, `Agency_Tel`) VALUES ('AG010', 'Torphy, Monahan and ', 'treutel.filomena@steuber.org', '064831805');
 
