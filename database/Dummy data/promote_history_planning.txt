@@ -1,0 +1,43 @@
+Promote History
+
+
+Number of Staff
+ST/CA	Position
+*1	'DE001', 'PO001', 'Chief Human Resources Officer'
+*2/1	'DE001', 'PO002', 'Human Resources Administrator'
+*2	'DE001', 'PO003', 'Human Resources Assistant'
+*2	'DE001', 'PO004', 'Recruiter'
+*1	'DE002', 'PO001', 'Chief Financial Officer'
+*1	'DE002', 'PO002', 'Financial Manager'
+*1/1	'DE002', 'PO003', 'Financial Auditor'
+*2	'DE003', 'PO001', 'Research and Development Manager'
+*3/1	'DE003', 'PO002', 'Clinical Researcher'
+*0/2	'DE003', 'PO003', 'Clinical Research Associate'
+
+
+Promote Path
+<initial staff>
+*ST001	'DE001', 'PO001'
+*ST002	'DE001', 'PO002'
+*ST003	'DE001', 'PO003'
+*ST004	'DE001', 'PO004' -> 'DE001', 'PO003' -> 'DE001', 'PO002'
+*ST005	'DE002', 'PO001'
+*ST006	'DE002', 'PO002'
+*ST007	'DE002', 'PO003'
+*ST008	'DE003', 'PO001'
+*ST009	'DE003', 'PO002' -> 'DE003', 'PO001'
+*ST010	'DE003', 'PO002'
+
+<past recruit staff>
+*ST011	'DE001', 'PO004' -> 'DE001', 'PO003'
+*ST012	'DE001', 'PO004'
+*ST013	'DE003', 'PO002'
+*ST014	'DE003', 'PO002'
+*ST015	'DE001', 'PO004'
+
+<present recruit candidate>
+*CA001	'DE001', 'PO002'
+*CA002	'DE002', 'PO003'
+*CA003	'DE003', 'PO003'
+*CA004	'DE003', 'PO002'
+*CA005	'DE003', 'PO003'

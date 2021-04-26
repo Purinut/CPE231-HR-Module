@@ -8,14 +8,14 @@ Dummy Data Status
 02> pending	Contract
 03> completed	Staff_Edu_History
 04> pending	Staff_Work_History
-05> pending	Staff_Work_Performance
-06> pending	Daily_Time_Record
-07> pending	Petition
+05> pending	Staff_Work_Performance	**hard to generate
+06> pending	Daily_Time_Record	**hard to generate
+07> completed	Petition
 08> completed	Department
 09> completed	Position
 10> pending	Promote_History
 11> pending	Recruit_Spec
 12> pending	Recruit_Apply
 13> pending	Enroll_Course
-14> completed	Train_Course
+14> completed	Train_Course	**add amount in des
 15> completed	Agency_Info
