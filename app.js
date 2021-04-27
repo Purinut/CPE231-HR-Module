@@ -29,7 +29,7 @@ app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/users', mainRouter);
 
-app.post('/logout', function(req, res){
+app.get('/logout', function(req, res){
 	res.redirect('/login');
 	req.session.destroy();
 });
