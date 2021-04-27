@@ -10,13 +10,13 @@ Dummy Data Status
 03> completed	Staff_Edu_History
 04> completed	Staff_Work_History
 05> completed	Staff_Work_Performance
-06> pending	Daily_Time_Record	**hard to generate
+06> completed	Daily_Time_Record
 07> completed	Petition
 08> completed	Department
 09> completed	Position
 10> completed	Promote_History
 11> completed	Recruit_Spec
-12> completed	Recruit_Apply	**apply -> record in promote_history(?)
-13> completed	Enroll_Course	**send CHRO to train(?), send all staff to train first 2 course(?)
+12> completed	Recruit_Apply	**apply -> record in promote_history
+13> completed	Enroll_Course	**send CHRO to train, send all staff to train first 2 course
 14> completed	Train_Course
 15> completed	Agency_Info

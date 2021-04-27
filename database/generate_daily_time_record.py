@@ -6,12 +6,12 @@
 # Status varchar(20) Work record status:OnTime, Late, Absent, SickLeave, PersonalLeave
 
 import random
-import datetime
+import datetime as dt
 
 class staff(object):
 	def __init__(self, ID, y, m, d):
 		self.ID = ID
-		self.joinDate = datetime.datetime(y, m, d)
+		self.joinDate = dt.date(y, m, d)
 
 allStaff = []
 allStaff.append(staff('ST001', 2020, 1, 1))
@@ -30,8 +30,6 @@ allStaff.append(staff('ST013', 2020, 8, 1))
 allStaff.append(staff('ST014', 2020, 8, 1))
 allStaff.append(staff('ST015', 2020, 8, 1))
 
-# print(str(allStaff[1].joinDate.time()))
-
 # OnTime, Late, Absent, SickLeave, PersonalLeave
 def genStatus():
 	ranValue = random.uniform(0, 1)
@@ -43,32 +41,35 @@ def genStatus():
 
 values = []
 
-curDate = datetime.datetime(2020, 1, 1)
-lastDate = datetime.datetime(2021, 6, 1)
-workTime = datetime.time(9, 0, 0)
+curDate = dt.date(2020, 1, 1)
+lastDate = dt.date(2021, 6, 1)
+workTime = dt.time(9, 0, 0)
+leaveTime = dt.time(16, 0, 0)
 while curDate != lastDate:
 	for st in allStaff:
-		genSt = genStatus()
-		if genSt == 'Work':
-			ranValue = round(random.normalvariate(-5, 15)%60, 1)
-			if ranValue < 0:
-				StartTime = 
-			diffTime = datetime.timedelta(minutes = )
-			print(diffTime)
-			break
+		if st.joinDate <= curDate:
+			Status = genStatus()
+			StartTime = ''
+			EndTime = ''
+			if Status == 'Work':
+				diffStart = round(random.normalvariate(-5, 10), 1)
+				StartTime = dt.datetime(curDate.year, curDate.month, curDate.day, 9, 0, 0)
+				StartTime += dt.timedelta(minutes = diffStart)
+				if(StartTime.time() <= workTime): Status = 'OnTime'
+				else: Status = 'Late'
 
+				diffEnd = round(random.normalvariate(15, 15), 1)
+				EndTime = dt.datetime(curDate.year, curDate.month, curDate.day, 17, 0, 0)
+				EndTime += dt.timedelta(minutes = diffEnd)
 
+			values.append("('{}', '{}', '{}', '{}', '{}')".format(st.ID, curDate, StartTime, EndTime, Status))
+	curDate += dt.timedelta(days = 1)
 
-# for i in range(100): print(str(genStatus()) + str(genTime()))
-
-
-
-
-# dummyData = open(r'Dummy data/daily_time_record.sql', 'w')
-# clause = "INSERT INTO `daily_time_record` (`Staff_ID`, `Work_Date`, `Work_StartTime`, `Work_EndTime`, `Status`) VALUES"
-# dummyData.write(clause)
-# for value in values:
-# 	if value != values[0]: dummyData.write(",\n{}".format(value))
-# 	else: dummyData.write("\n{}".format(value)) 
-# dummyData.write(";")
-# dummyData.close()
+dummyData = open(r'Dummy data/daily_time_record.sql', 'w')
+clause = "INSERT INTO `daily_time_record` (`Staff_ID`, `Work_Date`, `Work_StartTime`, `Work_EndTime`, `Status`) VALUES"
+dummyData.write(clause)
+for value in values:
+	if value != values[0]: dummyData.write(",\n{}".format(value))
+	else: dummyData.write("\n{}".format(value)) 
+dummyData.write(";")
+dummyData.close()

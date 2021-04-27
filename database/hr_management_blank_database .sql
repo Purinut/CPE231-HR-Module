@@ -50,7 +50,7 @@ CREATE TABLE `contract` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daily_time_ record`
+-- Table structure for table `daily_time_record`
 --
 
 CREATE TABLE `daily_time_ record` (

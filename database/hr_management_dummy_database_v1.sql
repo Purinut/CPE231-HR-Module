@@ -92,7 +92,7 @@ INSERT INTO `contract` (`Contract_ID`, `Staff_ID`, `Contract_StartDate`, `Contra
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daily_time_ record`
+-- Table structure for table `daily_time_record`
 --
 
 CREATE TABLE `daily_time_ record` (
