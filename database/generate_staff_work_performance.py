@@ -9,7 +9,7 @@ import datetime
 class staff(object):
 	def __init__(self, ID, y, m, d):
 		self.ID = ID
-		self.joinDate = datetime.datetime(y, m, d)
+		self.joinDate = datetime.date(y, m, d)
 
 allStaff = []
 allStaff.append(staff('ST001', 2020, 1, 1))
@@ -34,13 +34,13 @@ for curYear in (2020, 2021):
 	for curMonth in range(1, 13):
 		if (curYear == 2021) & (curMonth == 5): break
 		else:
-			curDate = datetime.datetime(curYear, curMonth, 5)
-			if curMonth == 12: perDate = datetime.datetime(curYear+1, 1, 5)
-			else: perDate = datetime.datetime(curYear, curMonth%12+1, 5)	#day 5 of next month
+			curDate = datetime.date(curYear, curMonth, 5)
+			if curMonth == 12: perDate = datetime.date(curYear+1, 1, 5)
+			else: perDate = datetime.date(curYear, curMonth+1, 5)	#day 5 of next month
 			for st in allStaff:
 				if st.joinDate < curDate:
 					score = round(random.uniform(0, 100), 2)
-					values.append("('{}', '{}', '{}')".format(st.ID, str(perDate)[0:10], score))
+					values.append("('{}', '{}', '{}')".format(st.ID, str(perDate), score))
 
 # for x in values: print(x)
 
