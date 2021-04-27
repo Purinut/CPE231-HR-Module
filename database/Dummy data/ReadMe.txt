@@ -9,7 +9,7 @@ Dummy Data Status
 02> completed	Contract
 03> completed	Staff_Edu_History
 04> completed	Staff_Work_History
-05> pending	Staff_Work_Performance	**hard to generate
+05> completed	Staff_Work_Performance
 06> pending	Daily_Time_Record	**hard to generate
 07> completed	Petition
 08> completed	Department
