@@ -10,3 +10,5 @@ INSERT INTO `department` (`Department_ID`, `Position_ID`, `Position_Name`, `MinS
 INSERT INTO `department` (`Department_ID`, `Position_ID`, `Position_Name`, `MinSalary`, `MaxSalary`, `Position_Detial`) VALUES ('DE003', 'PO001', 'Research and Development Manager', '50000', '300000', 'Manage research in company');
 INSERT INTO `department` (`Department_ID`, `Position_ID`, `Position_Name`, `MinSalary`, `MaxSalary`, `Position_Detial`) VALUES ('DE003', 'PO002', 'Clinical Researcher', '40000', '200000', 'Perform clinical research');
 INSERT INTO `department` (`Department_ID`, `Position_ID`, `Position_Name`, `MinSalary`, `MaxSalary`, `Position_Detial`) VALUES ('DE003', 'PO003', 'Clinical Research Associate', '', '', '');
+
+# Chief Human Resources Officer,Human Resources Administrator,Human Resources Assistant,Recruiter,Chief Financial Officer,Financial Manager,Financial Auditor,Research and Development Manager,Clinical Researcher,Clinical Research Associate
