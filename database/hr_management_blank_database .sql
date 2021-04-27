@@ -107,7 +107,7 @@ CREATE TABLE `petition` (
 CREATE TABLE `position` (
   `Department_ID` char(5) NOT NULL COMMENT 'Department ID for\r\nidentify position',
   `Position_ID` char(5) NOT NULL COMMENT 'Identify position',
-  `Position_Name` char(5) NOT NULL COMMENT 'Name of Position',
+  `Position_Name` varchar(50) NOT NULL COMMENT 'Name of Position',
   `MinSalary` int(11) DEFAULT NULL COMMENT 'Minimum Salary for\r\nposition',
   `MaxSalary` int(11) DEFAULT NULL COMMENT 'Maximum Salary for\r\nposition',
   `Position_Detail` text DEFAULT NULL COMMENT 'Duty of position'
