@@ -16,7 +16,7 @@ Dummy Data Status
 09> completed	Position
 10> completed	Promote_History
 11> completed	Recruit_Spec
-12> completed	Recruit_Apply	**apply -> record in promote_history or not
+12> completed	Recruit_Apply	**apply -> record in promote_history(?)
 13> completed	Enroll_Course	**send CHRO to train(?), send all staff to train first 2 course(?)
-14> completed	Train_Course	**add amount as new attribute(?)
+14> completed	Train_Course
 15> completed	Agency_Info
