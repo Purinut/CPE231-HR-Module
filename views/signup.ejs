@@ -9,12 +9,16 @@
 
   <body>
     <div class=title-block> 
-      <h1 class="title-name">For Admin only</h1>
+      <h1 class="title-name">For Testing</h1>
     </div>
     
     <div class="login-form">
       <h1 class="login-head h2 mb-3">Sign up</h1>
       <form action="/signup" method="POST">
+        <div class="mb-3">
+          <label for="staffID" class="form-label">staff ID</label>
+          <input class="form-control" type="text" name="staffID" placeholder="staff ID" required>
+        </div>
         <div class="mb-3">
           <label for="username" class="form-label">username</label>
           <input class="form-control" type="text" name="username" placeholder="Username" required>
