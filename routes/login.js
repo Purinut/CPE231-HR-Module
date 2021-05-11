@@ -8,7 +8,7 @@ const isLoggined = function(req, res, next) {
 	if(!req.session.user) {
 		next();	
 	}else{
-		res.redirect('/users/' + req.session.userID);
+		res.redirect('/users/' + req.session.posID);
 	}
 };
 
@@ -25,9 +25,10 @@ router.post('/', function(req, res) {
 		console.log(username + " " + password);
 		db.query(query, function(err, result){
 			if(result.length > 0) {
-				const correct = bcrypt.compareSync(password, result[0].password);
+				//console.log(result[0].Password);
+				const correct = bcrypt.compareSync(password, result[0].Password);
 				if(correct) {
-					req.session.user = result[0].username;
+					req.session.user = result[0].Username;
 					req.session.posID = result[0].Position_ID;
 					res.redirect('/users/' + req.session.posID);
 				}else{
