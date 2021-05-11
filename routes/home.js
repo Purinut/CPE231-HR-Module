@@ -21,7 +21,26 @@ router.get('/', isLoggined, function(req, res){
 	//res.render('users',{username: req.session.user});
 });
 
+router.get('/forms/add_staff', isLoggined, function(req, res){
+	res.render('forms/add_staff',{username: req.session.user});
+})
+
 //admin: ST002 ST004
 //assistant: ST003 ST011
+
+// Simple forms:
+// > Staff_Info (admin)
+// > Petition (2 roles)
+// > Contracts (admin)
+
+// Complex forms:
+// > Enroll (admin)
+// > Promote (admin)
+// > Recruit (assist)
+
+// Analysis Report:
+// > Staff Performance (2 roles)
+// > Petition Amount (admin)
+// > Staff Propotion (admin)
 
 module.exports = router;
