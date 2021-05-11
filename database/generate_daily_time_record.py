@@ -45,6 +45,7 @@ curDate = dt.date(2020, 1, 1)
 lastDate = dt.date(2021, 6, 1)
 workTime = dt.time(9, 0, 0)
 leaveTime = dt.time(16, 0, 0)
+
 while curDate != lastDate:
 	for st in allStaff:
 		if st.joinDate <= curDate:
@@ -57,15 +58,17 @@ while curDate != lastDate:
 				StartTime += dt.timedelta(minutes = diffStart)
 				if(StartTime.time() <= workTime): Status = 'OnTime'
 				else: Status = 'Late'
+				StartTime = StartTime.time()
 
 				diffEnd = round(random.normalvariate(15, 15), 1)
 				EndTime = dt.datetime(curDate.year, curDate.month, curDate.day, 17, 0, 0)
 				EndTime += dt.timedelta(minutes = diffEnd)
+				EndTime = EndTime.time()
 
 			values.append("('{}', '{}', '{}', '{}', '{}')".format(st.ID, curDate, StartTime, EndTime, Status))
 	curDate += dt.timedelta(days = 1)
 
-dummyData = open(r'Dummy data/daily_time_record.sql', 'w')
+dummyData = open(r'Dummy data/daily_time_record_time.sql', 'w')
 clause = "INSERT INTO `daily_time_record` (`Staff_ID`, `Work_Date`, `Work_StartTime`, `Work_EndTime`, `Status`) VALUES"
 dummyData.write(clause)
 for value in values:
