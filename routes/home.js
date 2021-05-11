@@ -21,8 +21,16 @@ router.get('/', isLoggined, function(req, res){
 	//res.render('users',{username: req.session.user});
 });
 
-router.get('/forms/add_staff', isLoggined, function(req, res){
-	res.render('forms/add_staff',{username: req.session.user});
+router.get('/forms/:form_type', isLoggined, function(req, res){
+	if(req.params.form_type == 'add_staff'){
+		res.render('forms/add_staff',{username: req.session.user});
+	}	
+})
+
+router.post('/forms/:form_type', isLoggined, function(req, res){
+	if(req.params.form_type == 'add_staff'){
+		res.send('submitted');
+	}	
 })
 
 //admin: ST002 ST004
