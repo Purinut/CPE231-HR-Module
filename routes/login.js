@@ -30,7 +30,8 @@ router.post('/', function(req, res) {
 				if(correct) {
 					req.session.user = result[0].Username;
 					req.session.posID = result[0].Position_ID;
-					res.redirect('/users/' + req.session.posID);
+					req.session.depID = result[0].Department_ID;
+					res.redirect('/users/');
 				}else{
 					res.redirect('/login');
 					//res.send('invalid password');
