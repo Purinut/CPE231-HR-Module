@@ -81,8 +81,42 @@
 			
 			<div id="layoutSidenav_content">
 				<main>
-					<h1>I am admin</h1>
-					<button id="form_add_staff" onclick="location.href='/users/forms/add_staff'">Add Staff</a></button>
+					<div class="container-fluid">
+						<h1>Admin Dashboard</h1>
+						<ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+
+						<div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area mr-1"></i>
+                                        Area Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar mr-1"></i>
+                                        Petition Amount
+                                    </div>
+                                    <div class="card-body"><canvas id="petitionAmount" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+						<button id="form_add_staff" onclick="location.href='/users/forms/add_staff'">Add Staff</a></button>
+
+					</div>
 				</main>
 			</div>
 
@@ -92,6 +126,54 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="/js/scripts.js"></script>
+
+	<!-- Chart -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+	<script type="text/javascript">
+			var obj = <%-JSON.stringify(petition) %>
+
+			var data = {
+			  labels: obj.labels,
+			  datasets: [{
+			    label: 'Petition Amount',
+			    data: obj.amount,
+			    backgroundColor: [
+			      'rgba(255, 99, 132, 0.2)',
+			      'rgba(255, 159, 64, 0.2)',
+			      'rgba(255, 205, 86, 0.2)',
+			      'rgba(75, 192, 192, 0.2)',
+			      'rgba(54, 162, 235, 0.2)'
+			    ],
+			    borderColor: [
+			      'rgb(255, 99, 132)',
+			      'rgb(255, 159, 64)',
+			      'rgb(255, 205, 86)',
+			      'rgb(75, 192, 192)',
+			      'rgb(54, 162, 235)'
+			    ],
+			    borderWidth: 1
+			  }]
+			};
+
+			var config = {
+			  type: 'bar',
+			  data: data,
+			  options: {
+			    scales: {
+			      y: {
+			        beginAtZero: true
+			      }
+			    }
+			  },
+			};
+
+
+			var barChart = new Chart(
+				document.getElementById('petitionAmount'),
+				config
+			);
+	</script>
+
 
 	</body>
 
