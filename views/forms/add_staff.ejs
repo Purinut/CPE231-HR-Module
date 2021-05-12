@@ -16,6 +16,7 @@
 				text-align: center;
 				color: #FFFFFF;
 				padding: 50px;
+				width: 50%;
 			}
 		</style>
 	</head>
@@ -89,10 +90,39 @@
 			
 			<div id="layoutSidenav_content" class="form">
 				<main>
-					<h1>Add staff form</h1>
+					<h1 style="margin-bottom: 50px;">Add Staff Form</h1>
 					<form method="post">
-						<input type="text" id="fname" name="fname" placeholder="First Name">
-						<input type="text" id="lname" name="lname" placeholder="Last Name"></br>
+						<label for="type">Choose type:</label>
+						<select name="type" required>
+							<option value="Staff">Staff</option>
+							<option value="Candidate">Candidate</option>>
+						</select>
+						</br></br>
+						<input type="text" name="FirstName" placeholder="First Name" required>
+						<input type="text" name="LastName" placeholder="Last Name" required>
+						</br>
+						<label for="Sex">Sex:</label>
+						<select name="Sex" required>
+							<option value="F">Female</option>
+							<option value="M">Male</option>
+						</select>
+						<label for="Status">Status:</label>
+						<select name="Status">
+							<option value="-">-</option>
+							<option value="Single">Single</option>
+							<option value="Married">Married</option>
+							<option value="Divorced">Divorced</option>
+						</select>
+						</br>			
+						<input type="date" name="DoB" required>
+						</br>
+						<input type="email" name="Email" placeholder="Email" required>
+						<input type="tel" name="Tel" placeholder="Tel No." required>
+						</br>
+						<textarea name="Address" rows="5" cols="40" required>
+							Address
+						</textarea>
+						</br></br>
 						<input type="submit" value="Submit">
 					</form>
 				</main>
