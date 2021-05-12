@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const getData = () =>{
 
-	const query = `SELECT DATE_FORMAT(Petition_Date, '%m-%y') AS DATE, COUNT(*) AS n
+	const query = `SELECT DATE_FORMAT(Petition_Date, '%m-%Y') AS DATE, COUNT(*) AS n
 	FROM petition
 	GROUP BY YEAR(Petition_Date), MONTH(Petition_Date)
 	ORDER BY YEAR(Petition_Date), MONTH(Petition_Date) DESC
@@ -27,8 +27,8 @@ const getData = () =>{
 		console.log(amount);
 
 		data = {
-			labels: labels,
-			amount: amount
+			labels: labels.reverse(),
+			amount: amount.reverse()
 		}
 
 		ex_data = JSON.stringify(data);
