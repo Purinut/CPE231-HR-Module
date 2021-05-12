@@ -10,6 +10,14 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+		<style>
+			.form {
+				background: #434343;
+				text-align: center;
+				color: #FFFFFF;
+				padding: 50px;
+			}
+		</style>
 	</head>
 
 
@@ -79,14 +87,12 @@
 				</nav>
 			</div>
 			
-			<div id="layoutSidenav_content">
+			<div id="layoutSidenav_content" class="form">
 				<main>
 					<h1>Add staff form</h1>
 					<form method="post">
-						<label for="fname">First name:</label></br>
-						<input type="text" id="fname"></br>
-						<label for="lname">Last name:</label></br>
-						<input type="text" id="lname"></br>
+						<input type="text" id="fname" name="fname" placeholder="First Name">
+						<input type="text" id="lname" name="lname" placeholder="Last Name"></br>
 						<input type="submit" value="Submit">
 					</form>
 				</main>

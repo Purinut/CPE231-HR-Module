@@ -36,7 +36,7 @@ router.get('/forms/:form_type', isLoggined, function(req, res){
 
 router.post('/forms/:form_type', isLoggined, function(req, res){
 	if(req.params.form_type == 'add_staff'){
-		res.send('submitted');
+		res.send(req.body.fname);
 	}	
 })
 
