@@ -21,9 +21,11 @@ router.post('/', function(req, res) {
 	const password = req.body.password;
 	if(username && password) {
 		//let query = 'SELECT * FROM credential WHERE username = \'' + username + '\'';
-		let query = 'SELECT * FROM credential c LEFT JOIN promote_history p ON c.Staff_ID = p.Staff_ID WHERE username = \'' + username + '\' ORDER BY Promote_Date DESC LIMIT 1';
 		console.log(username + " " + password);
-		db.query(query, function(err, result){
+		try {
+
+		db.query('SELECT * FROM credential c LEFT JOIN promote_history p ON c.Staff_ID = p.Staff_ID WHERE username = ? ORDER BY Promote_Date DESC LIMIT 1',[username], 
+			function(err, result){
 			if(result.length > 0) {
 				//console.log(result[0].Password);
 				const correct = bcrypt.compareSync(password, result[0].Password);
@@ -40,6 +42,11 @@ router.post('/', function(req, res) {
 				res.redirect('/login');
 			}
 		})
+
+		}catch (e){
+			res.send('Error! Please try again later');
+			console.log(e)
+		}
 	}else {
 		res.send('Please Enter Username and Password');
 	}
