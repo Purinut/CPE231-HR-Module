@@ -11,12 +11,28 @@
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 		<style>
-			.form {
+			.form-page {
 				background: #434343;
 				text-align: center;
 				color: #FFFFFF;
 				padding: 50px;
 				width: 50%;
+			}
+
+			.form-box {
+				margin-left: auto;
+				margin-right: auto;
+				width: 500px;
+				padding: 0%;
+				border: 1px solid aqua;
+			}
+
+			.input-left {
+				float: left;
+			}
+
+			.input-right {
+				float: right;
 			}
 		</style>
 	</head>
@@ -88,19 +104,19 @@
 				</nav>
 			</div>
 			
-			<div id="layoutSidenav_content" class="form">
+			<div id="layoutSidenav_content" class="form-page">
 				<main>
 					<h1 style="margin-bottom: 50px;">Add Staff Form</h1>
-					<form method="post">
+					<form method="post" class="form-box">
 						<label for="type">Choose type:</label>
 						<select name="type" required>
 							<option value="Staff">Staff</option>
 							<option value="Candidate">Candidate</option>>
 						</select>
 						</br></br>
-						<input type="text" name="FirstName" placeholder="First Name" required>
-						<input type="text" name="LastName" placeholder="Last Name" required>
-						</br>
+						<input type="text" name="FirstName" placeholder="First Name" class="input-left" required>
+						<input type="text" name="LastName" placeholder="Last Name" class="input-right" required>
+						</br></br>
 						<label for="Sex">Sex:</label>
 						<select name="Sex" required>
 							<option value="F">Female</option>
