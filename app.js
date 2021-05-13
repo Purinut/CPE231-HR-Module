@@ -24,10 +24,17 @@ app.use(
 const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
 const mainRouter = require('./routes/home');
+const formRouter = require('./routes/forms');
 
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/users', mainRouter);
+app.use('/forms', formRouter);
+
+
+app.get('/', function(req, res){
+	res.redirect('/login');
+})
 
 app.get('/logout', function(req, res){
 	res.redirect('/login');

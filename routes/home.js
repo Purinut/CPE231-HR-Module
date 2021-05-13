@@ -29,15 +29,7 @@ router.get('/', isLoggined, function(req, res){
 });
 
 router.get('/forms/:form_type', isLoggined, function(req, res){
-	if(req.params.form_type == 'add_staff'){
-		res.render('forms/add_staff',{username: req.session.user});
-	}	
-})
-
-router.post('/forms/:form_type', isLoggined, function(req, res){
-	if(req.params.form_type == 'add_staff'){
-		res.send(req.body.fname);
-	}	
+	res.redirect('/forms/' + req.params.form_type);
 })
 
 //admin: ST002 ST004

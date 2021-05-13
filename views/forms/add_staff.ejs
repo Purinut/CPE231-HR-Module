@@ -22,17 +22,33 @@
 			.form-box {
 				margin-left: auto;
 				margin-right: auto;
-				width: 500px;
+				width: 300px;
 				padding: 0%;
-				border: 1px solid aqua;
+				/* border: 1px solid aqua; */
 			}
 
-			.input-left {
-				float: left;
+			input, textarea {
+				width: 100%;
+				margin: 5px;
 			}
 
-			.input-right {
-				float: right;
+			label {
+				width: 45%;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+
+			select {
+				width: 50%;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+
+			.submit-button {
+				width: 30%;
+				background-color: #8091E7;
+				font-size: large;
+				color: #FFFFFF;				
 			}
 		</style>
 	</head>
@@ -67,34 +83,9 @@
 				<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 					<div class="sb-sidenav-menu">
 						<div class="nav">
-							<a class="nav-link" href="index.html">
+							<a class="nav-link" href="/users">
 								<div class="sb-nav-link-icon"><i class="fas fa-home"></i> </div>
 								Home
-							</a>
-							<a class="nav-link" href="staff.html">
-								<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-								Staff
-							</a>
-							<a class="nav-link" href="contract.html">
-								<div class="sb-nav-link-icon"><i class="fas fa-file-contract"></i></div>
-								Contract
-							</a>
-							<a class="nav-link" href="dtc.html">
-								<div class="sb-nav-link-icon"><i class="far fa-file"></i></div>
-								Daily Time Record
-							</a>
-							<a class="nav-link" href="training.html">
-								<div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>
-								Training
-							</a>
-							<a class="nav-link" href="petition.html">
-								<div class="sb-nav-link-icon"><i class="far fa-address-book"></i></div>
-								Petition
-							</a>
-							<a class="nav-link" href="recruitment.html">
-								<div class="sb-nav-link-icon">
-								<i class="fas fa-plus-circle"></i></div>
-								Recruitment
 							</a>
 						</div>
 					</div>
@@ -106,40 +97,35 @@
 			
 			<div id="layoutSidenav_content" class="form-page">
 				<main>
-					<h1 style="margin-bottom: 50px;">Add Staff Form</h1>
+					<h1 style="margin-bottom: 50px;">Add New People</h1>
 					<form method="post" class="form-box">
-						<label for="type">Choose type:</label>
+						<!-- <label for="type">Choose type:</label>
 						<select name="type" required>
 							<option value="Staff">Staff</option>
 							<option value="Candidate">Candidate</option>>
-						</select>
-						</br></br>
-						<input type="text" name="FirstName" placeholder="First Name" class="input-left" required>
-						<input type="text" name="LastName" placeholder="Last Name" class="input-right" required>
-						</br></br>
-						<label for="Sex">Sex:</label>
-						<select name="Sex" required>
+						</select></br> -->
+						<input type="text" name="staffID" placeholder="ID" ></br>
+						<input type="text" name="firstName" placeholder="First Name" ></br>
+						<input type="text" name="lastName" placeholder="Last Name" ></br>
+						<label for="sex">Sex:</label>
+						<select name="sex" >
 							<option value="F">Female</option>
 							<option value="M">Male</option>
-						</select>
-						<label for="Status">Status:</label>
-						<select name="Status">
+						</select></br>
+						<label for="status">Status:</label>
+						<select name="status">
 							<option value="-">-</option>
 							<option value="Single">Single</option>
 							<option value="Married">Married</option>
 							<option value="Divorced">Divorced</option>
-						</select>
-						</br>			
-						<input type="date" name="DoB" required>
-						</br>
-						<input type="email" name="Email" placeholder="Email" required>
-						<input type="tel" name="Tel" placeholder="Tel No." required>
-						</br>
-						<textarea name="Address" rows="5" cols="40" required>
-							Address
-						</textarea>
+						</select></br>
+						<label for="DoB">Date of Birth:</label>
+						<input type="date" id="DoB" name="DoB" style="width: 50%;" >
+						<input type="email" name="email" placeholder="Email" ></br>
+						<input type="tel" name="tel" placeholder="Tel No." ></br>
+						<textarea name="address" rows="3" cols="30" placeholder="Address" ></textarea>
 						</br></br>
-						<input type="submit" value="Submit">
+						<input type="submit" value="Submit", class="submit-button">
 					</form>
 				</main>
 			</div>
