@@ -44,8 +44,7 @@ router.post('/', function(req, res) {
 		})
 
 		}catch (e){
-			res.send('Error! Please try again later');
-			console.log(e)
+			throw e;
 		}
 	}else {
 		res.send('Please Enter Username and Password');

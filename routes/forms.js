@@ -34,10 +34,13 @@ function addStaff(req, res){
         const email = req.body.email;
         const tel = req.body.tel;
         const status = req.body.status;
-        let queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE \'' + type + '%\'';
+        //let queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE \'' + type + '%\'';
+        const queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE ?';
         let number = null;
         let staffID = null;
-        db.query(queryOut, function(err, result) {
+        try {
+
+        db.query(queryOut, [type + '%'],function(err, result) {
                 if(err) throw err;
                 number = result[0].number + 1;
                 if(number < 10) {
@@ -49,13 +52,19 @@ function addStaff(req, res){
                 } else {
                         return console.log(error);
                 }
-                let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
-                        VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
-                db.query(queryIn, function(err, result) {
+                //let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
+                        //VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
+                const queryIn = "INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
+                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
                         if(err) throw err;
                         console.log(result);
                 })
-	})        
+	})
+
+        } catch (e) {
+                throw e;
+        }
         res.redirect('/forms/' + req.params.form_type);
 }
 
