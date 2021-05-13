@@ -99,32 +99,31 @@
 				<main>
 					<h1 style="margin-bottom: 50px;">Add New People</h1>
 					<form method="post" class="form-box">
-						<!-- <label for="type">Choose type:</label>
+						<label for="type">People type:</label>
 						<select name="type" required>
-							<option value="Staff">Staff</option>
-							<option value="Candidate">Candidate</option>>
-						</select></br> -->
-						<input type="text" name="staffID" placeholder="ID" ></br>
-						<input type="text" name="firstName" placeholder="First Name" ></br>
-						<input type="text" name="lastName" placeholder="Last Name" ></br>
+							<option value="ST">Staff</option>
+							<option value="CA">Candidate</option>>
+						</select></br>
+						<!-- <input type="text" name="staffID" placeholder="ID" required></br> -->
+						<input type="text" name="firstName" placeholder="First Name" required></br>
+						<input type="text" name="lastName" placeholder="Last Name" required></br>
 						<label for="sex">Sex:</label>
-						<select name="sex" >
+						<select name="sex" required>
 							<option value="F">Female</option>
 							<option value="M">Male</option>
 						</select></br>
 						<label for="status">Status:</label>
 						<select name="status">
-							<option value="-">-</option>
+							<option value="">-</option>
 							<option value="Single">Single</option>
 							<option value="Married">Married</option>
 							<option value="Divorced">Divorced</option>
 						</select></br>
 						<label for="DoB">Date of Birth:</label>
-						<input type="date" id="DoB" name="DoB" style="width: 50%;" >
-						<input type="email" name="email" placeholder="Email" ></br>
-						<input type="tel" name="tel" placeholder="Tel No." ></br>
-						<textarea name="address" rows="3" cols="30" placeholder="Address" ></textarea>
-						</br></br>
+						<input type="date" id="DoB" name="DoB" style="width: 50%;" required>
+						<input type="email" name="email" placeholder="Email | example@mail.com" required></br>
+						<input type="tel" name="tel" placeholder="Tel Nunber | 0123456789" pattern="[0-9]{10}" required></br>
+						<textarea name="address" rows="3" cols="30" placeholder="Address" required></textarea></br></br>
 						<input type="submit" value="Submit" class="submit-button">
 					</form>
 				</main>
