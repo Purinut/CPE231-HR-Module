@@ -13,13 +13,21 @@ const isLoggined = function(req, res, next) {
 router.get('/:form_type', isLoggined, function(req, res){
 	if(req.params.form_type == 'add_staff'){
 		res.render('forms/add_staff',{username: req.session.user});
-	}	
+	}
+        else if(req.params.form_type == 'promote_staff'){
+		res.render('forms/promote_staff',{username: req.session.user});
+	}
+
 })
 
 router.post('/:form_type', isLoggined, function(req, res){
-	if(req.params.form_type == 'add_staff') {
+        let type = req.params.form_type
+	if(type == 'add_staff') {
                 addStaff(req, res);
-	} else {
+	} else if(type == 'promote_staff') {
+                promoteStaff(req, res);
+        } 
+        else {
                 res.send('error');
         }
 })
@@ -65,6 +73,10 @@ function addStaff(req, res){
         } catch (e) {
                 throw e;
         }
+        res.redirect('/forms/' + req.params.form_type);
+}
+
+function promoteStaff(req, res){
         res.redirect('/forms/' + req.params.form_type);
 }
 

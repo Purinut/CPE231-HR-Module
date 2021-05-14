@@ -19,13 +19,34 @@
 				width: 50%;
 			}
 
-			.form-box {
+            .form-box {
 				margin-left: auto;
 				margin-right: auto;
+				width: 800px;
+                height: 400px;
+				padding: 0%;
+				border: 1px solid aqua;
+			}
+
+			.form-box-left {
+                float: left;
+                /* margin-top: 0%;
+				margin-left: 0%;
+				margin-right: auto; */
 				width: 300px;
 				padding: 0%;
-				/* border: 1px solid aqua; */
+				border: 1px solid aqua;
 			}
+
+            .form-box-right {
+                float: right;
+                /* margin-top: 0%;
+                margin-left: auto;
+				margin-right: 0%; */
+				width: 300px;
+				padding: 0%;
+                border: 1px solid rebeccapurple;
+            }
 
 			input, textarea {
 				width: 100%;
@@ -98,14 +119,22 @@
 			
 			<div id="layoutSidenav_content" class="form-page">
 				<main>
-					<h1 style="margin-bottom: 50px;">Add New People</h1>
+					<h1 style="margin-bottom: 50px;">Promote Staff</h1>
 					<form method="post" class="form-box">
-						<label for="type">People type:</label>
+                        <div class="form-box-left">
+                            <input type="text" name="staffID" placeholder="Staff ID" required>
+                        </div>                        
+                        <div class="form-box-right">
+                            <input type="text" name="departmentID" placeholder="Department ID" required>
+                            <input type="text" name="positionID" placeholder="Position ID" required>
+                            <input type="text" name="promoteDate" placeholder="Promote Date" required>
+                        </div>
+                        <p style="color: white;">promote to</p>
+						<!-- <label for="type">People type:</label>
 						<select name="type" required>
 							<option value="ST">Staff</option>
 							<option value="CA">Candidate</option>>
 						</select></br>
-						<!-- <input type="text" name="staffID" placeholder="ID" required></br> -->
 						<input type="text" name="firstName" placeholder="First Name" required></br>
 						<input type="text" name="lastName" placeholder="Last Name" required></br>
 						<label for="sex">Sex:</label>
@@ -124,7 +153,7 @@
 						<input type="date" id="DoB" name="DoB" style="width: 50%;" required>
 						<input type="email" name="email" placeholder="Email | example@mail.com" required></br>
 						<input type="tel" name="tel" placeholder="Tel Nunber | 0123456789" pattern="[0-9]{10}" required></br>
-						<textarea name="address" rows="3" cols="30" placeholder="Address" required></textarea></br></br>
+						<textarea name="address" rows="3" cols="30" placeholder="Address" required></textarea></br></br> -->
 						<input type="submit" value="Submit" class="submit-button">
 					</form>
 				</main>
