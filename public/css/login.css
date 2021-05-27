@@ -29,3 +29,17 @@ body {
   color: white;
   border-radius: 50px;
 }
+
+.link-signup-box {
+  margin-top: 1%;
+  text-align: center;
+}
+
+.link-signup {
+  text-decoration: none;
+  color: darkgray;
+}
+
+.link-signup:hover {
+  color: dimgray;
+}
