@@ -6,6 +6,8 @@ const db = require('../db');
 
 const isLoggined = function(req, res, next) {
 	if(!req.session.user) {
+		res.locals.message = req.session.message;
+		delete req.session.message;
 		next();	
 	}else{
 		res.redirect('/users/' + req.session.posID);
@@ -35,10 +37,16 @@ router.post('/', function(req, res) {
 					req.session.depID = result[0].Department_ID;
 					res.redirect('/users/');
 				}else{
+					req.session.message = {
+						type: 'failed',
+						message: "Invalid Username/Password!"};
 					res.redirect('/login');
 					//res.send('invalid password');
 				}
 			}else{
+				req.session.message = {
+					type: 'failed',
+					message: "Invalid Username/Password!"};
 				res.redirect('/login');
 			}
 		})

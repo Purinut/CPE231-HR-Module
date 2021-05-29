@@ -27,6 +27,15 @@
           <label for="password" class="form-label">pasword</label>
           <input class="form-control" type="password" name="password" placeholder="Password" required>
         </div>
+
+        <% if(message) { %>
+          <% if(message.type == 'failed') { %>
+            <div class="alert-message"> 
+              <strong><%= message.message %></strong>
+            </div>
+          <% } %>
+        <% } %>
+
         <button class="login-btn w-100 btn btn-large" type="submit">Sign Up</button>
       </form>
     </div>

@@ -43,3 +43,13 @@ body {
 .link-signup:hover {
   color: dimgray;
 }
+
+.alert-message {
+  text-align: center;
+  margin: 2%;
+  color: red;
+}
+
+.alert-success {
+  text-align: center;
+}

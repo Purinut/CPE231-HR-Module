@@ -9,6 +9,14 @@
 
 
   <body>
+    <% if(message) { %>
+        <% if(message.type == 'success'){ %>
+          <div class="alert alert-success h4"> 
+            <strong><%= message.message %></strong>
+          </div>
+        <% } %>
+    <% } %>
+
     <div class=title-block> 
       <h1 class="title-name">Human Resource Department</h1>
     </div>
@@ -24,10 +32,22 @@
           <label for="password" class="form-label">password</label>
           <input class="form-control" type="password" name="password" placeholder="Password" required>
         </div>
+
+        <% if(message) { %>
+            <% if(message.type == 'failed'){ %>
+              <div class="alert-message"> 
+                <strong><%= message.message %></strong>
+              </div>
+            <% } %>
+        <% } %>
+
         <button class="login-btn w-100 btn btn-large" type="submit">Log in</button>
         <div class="link-signup-box small"> <a class="link-signup" href="/signup">Don't have account? Sign Up!</a> </div>
       </form>
     </div>
+
+    
+
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
