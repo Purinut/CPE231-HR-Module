@@ -23,7 +23,7 @@ router.get('/', isLoggined, function(req, res){
 		res.render('assistant',{username: req.session.user});
 	}
 	else {
-		res.send('Under construction');
+		res.render('users', {username: req.session.user});
 	}
 	//res.render('users',{username: req.session.user});
 });

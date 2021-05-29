@@ -29,20 +29,45 @@ router.post('/', function(req, res) {
 						message: "This username/ID has already used" };
 					res.redirect('/signup');
 				}else{
-					const pwHash = bcrypt.hashSync(password, 10);
-					try {
-						db.query('INSERT INTO credential(Staff_ID, username, password) VALUES(?, ?, ?)', [staffID, username, pwHash], 
-						function(err, result){
-							if(err) throw err;
-							console.log(result);
-						})
-						req.session.message = {
-							type: "success",
-							message: "Sign Up success!"
-						}
-						res.redirect('/login');
-					}
-					catch(e) {
+					try{
+					db.query('SELECT Department_ID\
+							FROM promote_history p\
+							INNER JOIN(\
+								SELECT Staff_ID, MAX(Promote_Date) AS Recent_Date\
+								FROM promote_history GROUP BY Staff_ID\
+							) md ON p.Staff_ID = md.Staff_ID AND Promote_Date = Recent_Date\
+							WHERE md.Staff_ID = ?',[staffID], function(err, result){
+								console.log(result);
+								if(result[0].Department_ID == 'DE001') {
+									const pwHash = bcrypt.hashSync(password, 10);
+									try {
+										db.query('INSERT INTO credential(Staff_ID, username, password) VALUES(?, ?, ?)', [staffID, username, pwHash], 
+										function(err, result){
+											if(err) throw err;
+											console.log(result);
+										})
+										req.session.message = {
+											type: "success",
+											message: "Sign Up success!"
+										}
+										res.redirect('/login');
+									}
+									catch(e) {
+										req.session.message = {
+											type: "failed",
+											message: "Something wrong! Please Try again Later"
+										}
+										res.redirect('/signup')
+									}
+								} else {
+									req.session.message = {
+										type: "failed",
+										message: "This ID is not in HR department!"
+									}
+									res.redirect('/signup')
+								}
+					})
+					} catch(e) {
 						req.session.message = {
 							type: "failed",
 							message: "Something wrong! Please Try again Later"
