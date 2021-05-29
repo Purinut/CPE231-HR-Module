@@ -43,14 +43,15 @@ function addStaff(req, res){
         const tel = req.body.tel;
         const status = req.body.status;
         //let queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE \'' + type + '%\'';
-        const queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE ?';
+        const queryOut = 'SELECT MAX(Staff_ID) AS recentStaff FROM staff_info WHERE Staff_ID LIKE ?';
         let number = null;
         let staffID = null;
         try {
 
         db.query(queryOut, [type + '%'],function(err, result) {
                 if(err) throw err;
-                number = result[0].number + 1;
+                // number = result[0].number + 1;
+                number = parseInt(result[0].recentStaff.slice(2)) + 1;
                 if(number < 10) {
                         staffID = type + '00' + number;
                 } else if(number < 100) {
@@ -60,8 +61,9 @@ function addStaff(req, res){
                 } else {
                         return console.log(error);
                 }
-                //let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
-                        //VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
+                
+                let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
+                        VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
                 const queryIn = "INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
                         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
