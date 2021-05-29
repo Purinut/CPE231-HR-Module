@@ -15,9 +15,9 @@ router.post('/', function(req, res) {
 	console.log('signup:' + username + ' ' + password);
 	if(username && password) {
 		const pwHash = bcrypt.hashSync(password, 10);
-		let query = 'INSERT INTO credential(Staff_ID, username, password) VALUES(\'' + staffID + '\', \'' + username + '\', \'' + pwHash + '\');';
-		console.log(query);
-		db.query(query, function(err, result){
+		//let query = 'INSERT INTO credential(Staff_ID, username, password) VALUES(\'' + staffID + '\', \'' + username + '\', \'' + pwHash + '\');';
+		db.query('INSERT INTO credential(Staff_ID, username, password) VALUES(?, ?, ?)', [staffID, username, pwHash], 
+		function(err, result){
 			if(err) throw err;
 			console.log(result);
 		})
