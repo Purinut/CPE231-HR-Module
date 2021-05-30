@@ -16,7 +16,7 @@ const getData = () =>{
             (SELECT Staff_ID, MAX(Perform_Date)
             FROM staff_work_performance
             GROUP BY Staff_ID)	
-        ORDER BY Staff_ID) AS lastPer
+        ) AS lastPer
         ON lastPos.Staff_ID = lastPer.Staff_ID) JOIN department d
         ON lastPos.Department_ID = d.Department_ID
     GROUP BY d.Department_ID

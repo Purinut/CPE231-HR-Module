@@ -9,6 +9,7 @@
 		<title>HR Management Module</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<link rel="stylesheet" type="text/css" href="/css/login.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 		<style>
 			.form-page {
@@ -19,30 +20,30 @@
 				width: 50%;
 			}
 
-            .form-box {
+			.form-box {
 				margin-left: auto;
 				margin-right: auto;
 				width: 800px;
-                height: 400px;
+				height: 400px;
 				padding: 0%;
 				/* border: 1px solid aqua; */
 			}
 
 			.form-box-left {
-                float: left;
+				float: left;
 				width: 300px;
 				height: 150px;
 				padding: 0%;
 				/* border: 1px solid aqua; */
 			}
 
-            .form-box-right {
-                float: right;
+			.form-box-right {
+				float: right;
 				width: 300px;
 				height: 150px;
 				padding: 0%;
-                /* border: 1px solid rebeccapurple; */
-            }
+				/* border: 1px solid rebeccapurple; */
+			}
 
 			input, textarea {
 				width: 100%;
@@ -116,13 +117,20 @@
 				<main>
 					<h1 style="margin-bottom: 50px;">Enroll Course</h1>
 					<form method="post" class="form-box">
-                        <div class="form-box-left">
-                            <input type="text" name="staffID" placeholder="Staff ID" required>
-                        </div>                        
-                        <div class="form-box-right">
-                            <input type="text" name="courseID" placeholder="Course ID" required>
-                        </div>
-                        <p style="color: white;">enroll in</p>
+						<div class="form-box-left">
+							<input type="text" name="staffID" placeholder="Staff ID" required>
+						</div>                        
+						<div class="form-box-right">
+							<input type="text" name="courseID" placeholder="Course ID" required>
+						</div>
+						<p style="color: white;">enroll in</p>
+						<% if(message) { %>
+						  <% if(message.type == 'failed') { %>
+							<div class="alert-message"> 
+							  <strong><%= message.message %></strong>
+							</div>
+						  <% } %>
+						<% } %>
 						<input type="submit" value="Submit" class="submit-button">
 						
 					</form>
