@@ -114,60 +114,20 @@
 			
 			<div id="layoutSidenav_content" class="form-page">
 				<main>
-					<h1 style="margin-bottom: 50px;">Promote Staff</h1>
+					<h1 style="margin-bottom: 50px;">Enroll Course</h1>
 					<form method="post" class="form-box">
                         <div class="form-box-left">
                             <input type="text" name="staffID" placeholder="Staff ID" required>
                         </div>                        
                         <div class="form-box-right">
-                            <input type="text" name="departmentID" placeholder="Department ID" required>
-                            <input type="text" name="positionID" placeholder="Position ID" required>
-							<p style="margin-top: 5px;">Promote Date: <span id="curDate"></span><p>
-                            <!-- <input type="text" name="promoteDate" placeholder="Promote Date" required> -->
+                            <input type="text" name="courseID" placeholder="Course ID" required>
                         </div>
-                        <p style="color: white;">promoted to</p>
+                        <p style="color: white;">enroll in</p>
 						<input type="submit" value="Submit" class="submit-button">
-						<!-- <ul class="quick-contact">
-							<li class="phone"><strong>Sales: </strong><span id="sales-number">0987 989898</span></li>
-							<li class="email"><strong>Email: </strong><a href="#" title="Sample link">info@yourdomain.com</a></li>
-							<li class="sites"><strong>Sites: </strong>
-							  <select id="inputbox" onchange="updateSalesNumber()">
-								<option value="USA">USA</option>
-								<option value="USA">UK</option>
-								<option value="France">France</option>
-								<option value="Japan">Japan</option>
-								<option value="South Africa">South Africa</option>
-							  </select>
-						  </li>
-						</ul> -->
+						
 					</form>
 				</main>
 			</div>
-
-	<!-- <script>
-		var salesNumbers = {  // store all phone numbers in an object here
-		'USA': '123 123',   // you can easily add/remove/modify the country/numbers here
-		'UK': '456 456',
-		'France': '789 789',
-		'Japan': '111 222',
-		'South Africa': '333 444'
-		}
-
-		function updateSalesNumber(){  // this will be called when dropdown value will be changed
-		var inputBox = document.getElementById("inputbox"); 
-		
-		// get the selected option
-		var selectedOption = inputBox.options[inputBox.selectedIndex].value;
-		
-		// update the number on the webpage
-		document.getElementById("sales-number").innerHTML = salesNumbers[selectedOption];
-		}
-	</script>			 -->
-	<script>
-		var today = new Date();		
-		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-		document.getElementById("curDate").innerHTML = date;
-	</script>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
