@@ -96,6 +96,20 @@ function addStaff(req, res){
 }
 
 function promoteStaff(req, res){
+        const staffID = req.body.staffID;
+        const promoteDate = req.body.curDate;
+        const departmentID = req.body.departmentID;
+        const positionID = req.body.positionID;
+        try {
+                const queryIn = `INSERT INTO promote_history
+                        VALUES(?, ?, ?, ?)`;
+                db.query(queryIn, [staffID, promoteDate, departmentID, positionID], function(err, result) {
+                        if(err) throw err;
+                        console.log(result);
+                })
+        } catch (e) {
+                throw e;
+        }
         res.redirect('/forms/' + req.params.form_type);
 }
 

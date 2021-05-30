@@ -122,8 +122,8 @@
                         <div class="form-box-right">
                             <input type="text" name="departmentID" placeholder="Department ID" required>
                             <input type="text" name="positionID" placeholder="Position ID" required>
-							<p style="margin-top: 5px;">Promote Date: <span id="curDate"></span><p>
-                            <!-- <input type="text" name="promoteDate" placeholder="Promote Date" required> -->
+							<p style="margin-top: 5px;">Promote Date: <span id="showCurDate"></span></p>
+							<input type="hidden" name="curDate" id="curDate">
                         </div>
                         <p style="color: white;">promoted to</p>
 						<input type="submit" value="Submit" class="submit-button">
@@ -164,9 +164,10 @@
 		}
 	</script>			 -->
 	<script>
-		var today = new Date();		
+		var today = new Date();
 		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-		document.getElementById("curDate").innerHTML = date;
+		document.getElementById("showCurDate").innerHTML = date;
+		document.getElementById("curDate").value = date;
 	</script>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
