@@ -46,3 +46,22 @@ FROM Department d
 				AND po.Position_ID = lastP.Position_ID) AS t
 	ON d.Department_ID = t.Department_ID
 ORDER BY Staff_ID;
+
+-- #5 last month performace score
+SELECT lastPos.Department_ID AS ID, d.Department_Name AS Name, AVG(lastPer.Perform_Score) AS Score
+FROM ((SELECT Staff_ID, Department_ID, Position_ID
+	FROM Promote_History
+	WHERE	(Staff_ID, Promote_Date) IN
+		(SELECT Staff_ID, MAX(Promote_Date)
+		FROM Promote_History
+		GROUP BY Staff_ID)) AS lastPos JOIN
+	(SELECT Staff_ID, Perform_Score
+	FROM staff_work_performance
+	WHERE	(Staff_ID, Perform_Date) IN
+		(SELECT Staff_ID, MAX(Perform_Date)
+		FROM staff_work_performance
+		GROUP BY Staff_ID)	
+	ORDER BY Staff_ID) AS lastPer
+	ON lastPos.Staff_ID = lastPer.Staff_ID) JOIN department d
+	ON lastPos.Department_ID = d.Department_ID
+GROUP BY d.Department_ID;
