@@ -11,19 +11,23 @@ const isLoggined = function(req, res, next) {
 
 const getPetition = require('../chart/get_petition_amount');
 const getStaffProp = require('../chart/get_staff_proportion');
+const getStaffPerf = require('../chart/get_staff_performance');
 
 router.get('/', isLoggined, function(req, res){
 	const userSession = req.session;
 	getPetition.getData();
 	getStaffProp.getData();
+	getStaffPerf.getData();
 
 	let rawPetition = fs.readFileSync('petition.json');
 	let petition = JSON.parse(rawPetition);
 	let rawStaffProp = fs.readFileSync('staff_proportion.json');
 	let staffProp = JSON.parse(rawStaffProp);
+	let rawStaffPerf = fs.readFileSync('staff_performance.json');
+	let staffPerf = JSON.parse(rawStaffPerf);
 
 	if(req.session.depID == 'DE001' && req.session.posID == 'PO002'){
-		res.render('admin',{userSession: userSession, petition: petition, staffProp: staffProp});
+		res.render('admin',{userSession: userSession, petition: petition, staffProp: staffProp, staffPerf: staffPerf});
 	} 
 	else if(req.session.depID == 'DE001' && req.session.posID == 'PO003'){
 		res.render('assistant',{userSession: userSession});
