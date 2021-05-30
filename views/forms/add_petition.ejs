@@ -65,7 +65,7 @@
 			<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
 			<ul class="navbar-nav ml-auto ml-md-0">
 				<li class="nav-item mx-2 my-auto username">
-					<%= username %>
+					<%= userSession.user %>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -97,10 +97,10 @@
 				<main>
 					<h1 style="margin-bottom: 50px;">Add New Petition</h1>
 					<form method="post" class="form-box">
-						<input type="text" name="staffID" placeholder="Staff ID" required></br>
+						<input type="text" id="StaffID" name="staffID" value="<%= userSession.staffID %>" readonly>
 						<label for="PetDate">Petition Date:</label>
 						<input type="date" id="PetDate" name="PetDate" style="width: 50%;" required>						
-						<textarea name="content" rows="3" cols="30" placeholder="Add Petition Here" required></textarea></br></br>
+						<textarea name="content" rows="6" cols="30" placeholder="Add Petition Here" required></textarea></br></br>
 						<input type="submit" value="Submit" class="submit-button">
 					</form>
 				</main>

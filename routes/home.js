@@ -13,6 +13,7 @@ const getPetition = require('../chart/get_petition_amount');
 const getStaffProp = require('../chart/get_staff_proportion');
 
 router.get('/', isLoggined, function(req, res){
+	const userSession = req.session;
 	getPetition.getData();
 	getStaffProp.getData();
 
@@ -22,13 +23,13 @@ router.get('/', isLoggined, function(req, res){
 	let staffProp = JSON.parse(rawStaffProp);
 
 	if(req.session.depID == 'DE001' && req.session.posID == 'PO002'){
-		res.render('admin',{username: req.session.user, petition: petition, staffProp: staffProp});
+		res.render('admin',{userSession: userSession, petition: petition, staffProp: staffProp});
 	} 
 	else if(req.session.depID == 'DE001' && req.session.posID == 'PO003'){
-		res.render('assistant',{username: req.session.user});
+		res.render('assistant',{userSession: userSession});
 	}
 	else {
-		res.render('users', {username: req.session.user});
+		res.render('users', {userSession: userSession});
 	}
 	//res.render('users',{username: req.session.user});
 });

@@ -33,6 +33,7 @@ router.post('/', function(req, res) {
 				const correct = bcrypt.compareSync(password, result[0].Password);
 				if(correct) {
 					req.session.user = result[0].Username;
+					req.session.staffID = result[0].Staff_ID;
 					req.session.posID = result[0].Position_ID;
 					req.session.depID = result[0].Department_ID;
 					res.redirect('/users/');

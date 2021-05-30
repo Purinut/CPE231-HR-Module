@@ -11,23 +11,25 @@ const isLoggined = function(req, res, next) {
 };
 
 router.get('/:form_type', isLoggined, function(req, res){
+        const userSession = req.session;
+        
 	if(req.params.form_type == 'add_staff'){
-		res.render('forms/add_staff',{username: req.session.user});
+		res.render('forms/add_staff',{userSession: userSession});
 	}
         else if(req.params.form_type == 'promote_staff'){
-		res.render('forms/promote_staff',{username: req.session.user});
+		res.render('forms/promote_staff',{userSession: userSession});
 	}
         else if(req.params.form_type == 'add_petition'){
-		res.render('forms/add_petition',{username: req.session.user});
+		res.render('forms/add_petition',{userSession: userSession});
 	}
         else if(req.params.form_type == 'make_contract'){
-		res.render('forms/make_contract',{username: req.session.user});
+		res.render('forms/make_contract',{userSession: userSession});
 	}
         else if(req.params.form_type == 'enroll_course'){
-		res.render('forms/enroll_course',{username: req.session.user});
+		res.render('forms/enroll_course',{userSession: userSession});
 	}
         else if(req.params.form_type == 'recruit_staff'){
-		res.render('forms/recruit_staff',{username: req.session.user});
+		res.render('forms/recruit_staff',{userSession: userSession});
 	}
 })
 
@@ -114,8 +116,9 @@ function promoteStaff(req, res){
 }
 
 function addPetition(req, res){
-
-        // add value retrieving here
+        const staffID = req.body.staffID;
+        const petitionDate = req.body.PetDate;
+        const petitionContent = req.body.content;
 
         const queryOut = `SELECT MAX(Petition_ID) AS recentPet
                 FROM petition;`;
@@ -134,7 +137,13 @@ function addPetition(req, res){
                                 return console.log(error);
                         }
 
-                        // add sum query here
+                        const queryIn = `INSERT INTO petition
+                                        VALUES(?, ?, ?, ?, ?)`;
+                        db.query(queryIn, [petitionID, staffID, petitionDate, petitionContent, 'Unread'], 
+                        function(err, result) {
+                                if(err) throw err;
+                                console.log(result);
+                        })
 
                 })
         } catch (e) {
