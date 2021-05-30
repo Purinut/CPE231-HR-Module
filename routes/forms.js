@@ -61,35 +61,34 @@ function addStaff(req, res){
         const tel = req.body.tel;
         const status = req.body.status;
         //let queryOut = 'SELECT COUNT(*) AS number FROM staff_info WHERE Staff_ID LIKE \'' + type + '%\'';
-        const queryOut = 'SELECT MAX(Staff_ID) AS recentStaff FROM staff_info WHERE Staff_ID LIKE ?';
-        let number = null;
+        const queryOut = `SELECT MAX(Staff_ID) AS recentStaff
+                FROM staff_info
+                WHERE Staff_ID LIKE ?;`;
         let staffID = null;
         try {
-
-        db.query(queryOut, [type + '%'],function(err, result) {
-                if(err) throw err;
-                // number = result[0].number + 1;
-                number = parseInt(result[0].recentStaff.slice(2)) + 1;
-                if(number < 10) {
-                        staffID = type + '00' + number;
-                } else if(number < 100) {
-                        staffID = type + '0' + number;
-                } else if(number < 1000) {
-                        staffID = type + number;
-                } else {
-                        return console.log(error);
-                }
-                
-                // let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
-                //         VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
-                const queryIn = "INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
-                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
+                db.query(queryOut, [type + '%'], function(err, result) {
                         if(err) throw err;
-                        console.log(result);
-                })
-	})
-
+                        // number = result[0].number + 1;
+                        const number = parseInt(result[0].recentStaff.slice(2)) + 1;
+                        if(number < 10) {
+                                staffID = type + '00' + number;
+                        } else if(number < 100) {
+                                staffID = type + '0' + number;
+                        } else if(number < 1000) {
+                                staffID = type + number;
+                        } else {
+                                return console.log(error);
+                        }
+                        
+                        // let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
+                        //         VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
+                        const queryIn = `INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)
+                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+                        db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
+                                if(err) throw err;
+                                console.log(result);
+                        })
+	        })
         } catch (e) {
                 throw e;
         }
@@ -101,18 +100,126 @@ function promoteStaff(req, res){
 }
 
 function addPetition(req, res){
+
+        // add value retrieving here
+
+        const queryOut = `SELECT MAX(Petition_ID) AS recentPet
+                FROM petition;`;
+        let petitionID = 'PE';
+        try {
+                db.query(queryOut, function(err, result) {
+                        if(err) throw err;
+                        const number = parseInt(result[0].recentPet.slice(2)) + 1;
+                        if(number < 10) {
+                                petitionID = petitionID + '00' + number;
+                        } else if(number < 100) {
+                                petitionID = petitionID + '0' + number;
+                        } else if(number < 1000) {
+                                petitionID = petitionID + number;
+                        } else {
+                                return console.log(error);
+                        }
+
+                        // add sum query here
+
+                })
+        } catch (e) {
+                throw e;
+        }
+
         res.redirect('/forms/' + req.params.form_type);
 }
 
 function makeContract(req, res){
+
+        // add value retrieving here
+
+        const queryOut = `SELECT MAX(Contract_ID) AS recentCon
+                FROM contract;`;
+        let contractID = 'CO';
+        try {
+                db.query(queryOut, function(err, result) {
+                        if(err) throw err;
+                        const number = parseInt(result[0].recentCon.slice(2)) + 1;
+                        if(number < 10) {
+                                contractID = contractID + '00' + number;
+                        } else if(number < 100) {
+                                contractID = contractID + '0' + number;
+                        } else if(number < 1000) {
+                                contractID = contractID + number;
+                        } else {
+                                return console.log(error);
+                        }
+
+                        // add sum query here
+
+                })
+        } catch (e) {
+                throw e;
+        }
+
         res.redirect('/forms/' + req.params.form_type);
 }
 
 function enrollCourse(req, res){
+
+        // add value retrieving here
+
+        const queryOut = `SELECT MAX(Enroll_ID) AS recentEnroll
+                FROM enroll_course;`;
+        let enrollID = 'EC';
+        try {
+                db.query(queryOut, function(err, result) {
+                        if(err) throw err;
+                        const number = parseInt(result[0].recentEnroll.slice(2)) + 1;
+                        if(number < 10) {
+                                enrollID = enrollID + '00' + number;
+                        } else if(number < 100) {
+                                enrollID = enrollID + '0' + number;
+                        } else if(number < 1000) {
+                                enrollID = enrollID + number;
+                        } else {
+                                return console.log(error);
+                        }
+
+                        // add sum query here
+
+                })
+        } catch (e) {
+                throw e;
+        }
+
         res.redirect('/forms/' + req.params.form_type);
 }
 
 function recruitStaff(req, res){
+
+        // add value retrieving here
+
+        const queryOut = `SELECT MAX(RecruitApply_ID) AS recentApply
+                FROM recruit_apply;`;
+        let recruitApplyID = 'RA';
+        try {
+                db.query(queryOut, function(err, result) {
+                        if(err) throw err;
+                        const number = parseInt(result[0].recentApply.slice(2)) + 1;
+                        if(number < 10) {
+                                recruitApplyID = recruitApplyID + '00' + number;
+                        } else if(number < 100) {
+                                recruitApplyID = recruitApplyID + '0' + number;
+                        } else if(number < 1000) {
+                                recruitApplyID = recruitApplyID + number;
+                        } else {
+                                return console.log(error);
+                        }
+
+                        // add sum query here
+
+                })
+        } catch (e) {
+                throw e;
+        }
+
         res.redirect('/forms/' + req.params.form_type);
 }
 
