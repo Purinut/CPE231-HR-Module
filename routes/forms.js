@@ -16,7 +16,10 @@ router.get('/:form_type', isLoggined, function(req, res){
 	if(req.params.form_type == 'add_staff'){
 		res.render('forms/add_staff',{userSession: userSession});
 	}
-        else if(req.params.form_type == 'promote_staff'){
+        else if(req.params.form_type == 'promote_staff'){                
+                // res.locals.staffInfo = req.session.staffInfo;
+	        // delete req.session.staffInfo;
+                // , staffInfo: req.session.staffInfo
 		res.render('forms/promote_staff',{userSession: userSession});
 	}
         else if(req.params.form_type == 'add_petition'){
@@ -97,20 +100,72 @@ function addStaff(req, res){
         res.redirect('/forms/' + req.params.form_type);
 }
 
+// function promoteStaff(req, res){
+//         const staffID = req.body.staffID;
+//         const promoteDate = req.body.curDate;
+//         const departmentID = req.body.departmentID;
+//         const positionID = req.body.positionID;
+//         try {
+//                 const queryIn = `INSERT INTO promote_history
+//                         VALUES(?, ?, ?, ?)`;
+//                 db.query(queryIn, [staffID, promoteDate, departmentID, positionID], function(err, result) {
+//                         if(err) throw err;
+//                         console.log(result);
+//                 })
+//         } catch (e) {
+//                 throw e;
+//         }
+//         res.redirect('/forms/' + req.params.form_type);
+// }
+
 function promoteStaff(req, res){
         const staffID = req.body.staffID;
-        const promoteDate = req.body.curDate;
-        const departmentID = req.body.departmentID;
-        const positionID = req.body.positionID;
         try {
-                const queryIn = `INSERT INTO promote_history
-                        VALUES(?, ?, ?, ?)`;
-                db.query(queryIn, [staffID, promoteDate, departmentID, positionID], function(err, result) {
-                        if(err) throw err;
-                        console.log(result);
+                const queryStaffOut = `SELECT t.Staff_ID, t.Staff_FirstName, t.Staff_LastName, t.Department_ID, t.Position_ID, d.Department_Name, t.Position_Name
+                        FROM Department d
+                                RIGHT JOIN
+                                        (SELECT lastP.Staff_ID, lastP.Staff_FirstName, lastP.Staff_LastName, po.Department_ID, po.Position_ID, po.Position_Name
+                                        FROM Position po 
+                                                RIGHT JOIN
+                                                        (SELECT s.Staff_ID, s.Staff_FirstName, s.Staff_LastName, p.Department_ID, p.Position_ID
+                                                        FROM Staff_Info AS s
+                                                                RIGHT JOIN
+                                                                        (SELECT Staff_ID, Department_ID, Position_ID
+                                                                        FROM Promote_History
+                                                                        WHERE	(Staff_ID, Promote_Date) IN
+                                                                                (SELECT Staff_ID, MAX(Promote_Date)
+                                                                                FROM Promote_History
+                                                                                GROUP BY Staff_ID)) AS p
+                                                                ON s.Staff_ID = p.Staff_ID) AS lastP
+                                                ON po.Department_ID = lastP.Department_ID
+                                                        AND po.Position_ID = lastP.Position_ID) AS t
+                                ON d.Department_ID = t.Department_ID
+                        WHERE Staff_ID = ?;`;
+                db.query(queryStaffOut, [staffID], function(err, result) {                        
+                        if(err) {
+                                console.log('query staffInfo error!!!!!!!!!!!');
+                                console.log(err);
+                                throw err;
+                        } else {
+                                console.log('R E S U L T');
+                                console.log(result);
+                                req.session.firstName = "test firstName" ;
+
+                                // req.session.staffInfo = {
+                                //         firstName: "test complete?"
+                                //         // firstName: result[0].Staff_FirstName,
+                                //         // lastName: result[0].Staff_LastName,
+                                //         // departmentID: result[0].Department_ID,
+                                //         // positionID: result[0].Position_ID,
+                                //         // departmentName: result[0].Department_Name,
+                                //         // positionName: result[0].Position_Name
+                                // };
+                                res.redirect('/forms/' + req.params.form_type);
+                        }
                 })
         } catch (e) {
-                throw e;
+                console.log('error out here????????????');
+                throw err;
         }
         res.redirect('/forms/' + req.params.form_type);
 }
