@@ -10,14 +10,19 @@ const isLoggined = function(req, res, next) {
 };
 
 const getPetition = require('../chart/get_petition_amount');
+const getStaffProp = require('../chart/get_staff_proportion');
 
 router.get('/', isLoggined, function(req, res){
 	getPetition.getData();
-	let rawdata = fs.readFileSync('petition.json');
-	let petition = JSON.parse(rawdata);
+	getStaffProp.getData();
+
+	let rawPetition = fs.readFileSync('petition.json');
+	let petition = JSON.parse(rawPetition);
+	let rawStaffProp = fs.readFileSync('staff_proportion.json');
+	let staffProp = JSON.parse(rawStaffProp);
 
 	if(req.session.depID == 'DE001' && req.session.posID == 'PO002'){
-		res.render('admin',{username: req.session.user, petition: petition});
+		res.render('admin',{username: req.session.user, petition: petition, staffProp: staffProp});
 	} 
 	else if(req.session.depID == 'DE001' && req.session.posID == 'PO003'){
 		res.render('assistant',{username: req.session.user});
