@@ -37,8 +37,15 @@ router.post('/:form_type', isLoggined, function(req, res){
                 addStaff(req, res);
 	} else if(type == 'promote_staff') {
                 promoteStaff(req, res);
-        } 
-        else {
+        } else if(type == 'add_petition') {
+                addPetition(req, res);
+        } else if(type == 'make_contract') {
+                makeContract(req, res);
+        } else if(type == 'enroll_course') {
+                enrollCourse(req, res);
+        } else if(type == 'recruit_staff') {
+                recruitStaff(req, res);
+        } else {
                 res.send('error');
         }
 })
@@ -90,6 +97,22 @@ function addStaff(req, res){
 }
 
 function promoteStaff(req, res){
+        res.redirect('/forms/' + req.params.form_type);
+}
+
+function addPetition(req, res){
+        res.redirect('/forms/' + req.params.form_type);
+}
+
+function makeContract(req, res){
+        res.redirect('/forms/' + req.params.form_type);
+}
+
+function enrollCourse(req, res){
+        res.redirect('/forms/' + req.params.form_type);
+}
+
+function recruitStaff(req, res){
         res.redirect('/forms/' + req.params.form_type);
 }
 
