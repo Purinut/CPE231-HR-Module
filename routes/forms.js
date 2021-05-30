@@ -17,7 +17,18 @@ router.get('/:form_type', isLoggined, function(req, res){
         else if(req.params.form_type == 'promote_staff'){
 		res.render('forms/promote_staff',{username: req.session.user});
 	}
-
+        else if(req.params.form_type == 'add_petition'){
+		res.render('forms/add_petition',{username: req.session.user});
+	}
+        else if(req.params.form_type == 'make_contract'){
+		res.render('forms/make_contract',{username: req.session.user});
+	}
+        else if(req.params.form_type == 'enroll_course'){
+		res.render('forms/enroll_course',{username: req.session.user});
+	}
+        else if(req.params.form_type == 'recruit_staff'){
+		res.render('forms/recruit_staff',{username: req.session.user});
+	}
 })
 
 router.post('/:form_type', isLoggined, function(req, res){
