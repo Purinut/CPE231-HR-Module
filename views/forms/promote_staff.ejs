@@ -129,7 +129,8 @@
 						<input type="text" name="staffID" placeholder="Staff ID | ST000 - ST999" required>
 						<input type="submit" value="Search" class="submit-button">
 					</form>
-					<% if(staffInfo && departPos && departPosLength) { %>
+					<% if(staffInfo && departIDList && departPos) { %>
+						
 					<form method="POST" class="form-box">
                         <div class="form-box-left">
 							<label for="StaffID">StaffID:</label>
@@ -142,17 +143,24 @@
 							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
                         </div>
                         <div class="form-box-right">
-							<label for="SelectPosition">Position:</label><br>
-							<select name="SelectPosition" id="SelectPosition">								
-								<% for(i=0; i<departPosLength; i++){ %>
-										<option value="<%= departPos[i].positionName %>"><%= departPos[i].positionName %></option>
+							<label for="SelectDepartment">Department:</label><br>
+							<select name="SelectDepartment" id="SelectDepartment" onchange="chooseDepart()">
+								<option>-</option>
+								<% for(i=0; i<departIDList.length; i++){ %>
+									<option value="<%= i %>"><%= departIDList[i].departmentName %></option>
 								<% } %>
 							</select>
+							
+							<label for="SelectPosition">Position:</label><br>
+							<select name="SelectPosition" id="SelectPosition">
+								<option>-</option>
+							</select>
+							<p>test: <span id="test"></span></p>
 							<p style="margin-top: 5px;">Promote Date: <span id="showCurDate"></span></p>
 							<input type="hidden" name="curDate" id="curDate">
                         </div>
                         <p style="color: white; padding-top: 50px;">promoted to</p>
-						<input type="submit" value="Promote" class="submit-button" style="margin-top: 230px;">					
+						<input type="submit" value="Promote" class="submit-button" style="margin-top: 230px;">
 					</form>
 					<% } %>
 				</main>
@@ -164,7 +172,13 @@
 		document.getElementById("showCurDate").innerHTML = date;
 		document.getElementById("curDate").value = date;
 	</script>
-
+	<script>
+		function chooseDepart() {		
+			var chosenDepart = document.getElementById("SelectDepartment").value;
+			document.getElementById("test").innerHTML = chosenDepart;
+			document.getElementById(chosenDepart);
+		}
+	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

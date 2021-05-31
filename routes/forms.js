@@ -22,10 +22,13 @@ router.get('/:form_type', isLoggined, function(req, res){
 	else if(req.params.form_type == 'promote_staff'){
 		res.locals.staffInfo = req.session.staffInfo;
 		delete req.session.staffInfo;
+
+		res.locals.departIDList = req.session.departIDList;
+		delete req.session.departIDList;
+
 		res.locals.departPos = req.session.departPos;
 		delete req.session.departPos;
-		res.locals.departPosLength = req.session.departPosLength;
-		delete req.session.departPosLength;
+
 		res.render('forms/promote_staff',{userSession: userSession});
 	}
 	else if(req.params.form_type == 'add_petition'){
@@ -173,18 +176,39 @@ function promoteStaff(req, res){
 									WHERE (d.Department_ID, p.Position_ID) != (?, ?);`, [staffDepartID, staffPosID],
 								function(err, result2) {
 									if (err) throw err;
-									// console.log('creating session...');
-									req.session.departPosLength = result2.length;
-									// console.log(req.session.departPosLength);
-									req.session.departPos = [];
-									for (i=0; i<result2.length; i++){
-										req.session.departPos[i] = {
-											departmentID: result2[i].Department_ID,
-											positionID: result2[i].Position_ID,
-											departmentName: result2[i].Department_Name,
-											positionName: result2[i].Position_Name
-										};
+									console.log('query success');
+									let departPos = [];
+									let departIDList = [];
+									let j = 0;
+									departIDList.push({
+										departmentID: result2[0].Department_ID,
+										departmentName: result2[0].Department_Name
+									});
+									j++;
+									for(i=0; i<result2.length; i++) {
+										let curID = result2[i].Department_ID;
+										if (curID != departIDList[j-1].departmentID) {
+											departIDList.push({
+												departmentID: result2[i].Department_ID,
+												departmentName: result2[i].Department_Name
+											});
+											j++;
+										}
+										if (departPos.length < j) {
+											departPos[j-1] = [];
+											departPos[j-1].push({
+												positionID: result2[i].Position_ID,
+												positionName: result2[i].Position_Name
+											});
+										} else {
+											departPos[j-1].push({
+												positionID: result2[i].Position_ID,
+												positionName: result2[i].Position_Name
+											});
+										}										
 									}
+									req.session.departIDList = departIDList;
+									req.session.departPos = departPos;
 									res.redirect('/forms/' + req.params.form_type);
 								}
 							)
