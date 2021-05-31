@@ -46,7 +46,7 @@
 								<div class="sb-nav-link-icon"><i class="fas fa-home"></i> </div>
 								Home
 							</a>
-							<a class="nav-link" href="#staffProportion">
+							<a class="nav-link" href="#topPerformanceStaff">
 								<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
 								Staff
 							</a>
@@ -73,9 +73,9 @@
 							</a>
 						</div>
 					</div>
-                    <div class="sb-sidenav-footer">
-                        <a class="footer-form" href="#Forms"> Forms </a>
-                    </div>
+					<div class="sb-sidenav-footer">
+						<a class="footer-form" href="#Forms"> Forms </a>
+					</div>
 				</nav>
 			</div>
 			
@@ -84,67 +84,149 @@
 					<div class="container-fluid">
 						<h1>Admin Dashboard</h1>
 						<ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+							<li class="breadcrumb-item active">Dashboard</li>
+						</ol>
 
 						<div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Petition Amount
-                                    </div>
-                                    <div class="card-body"><canvas id="petitionAmountMini" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card mb-4">
-                        	<div class="card-header">
-                        		<i class="fas fa-chart-bar mr-1"></i>
-                        		Staff Proportion
-                        	</div>
-                        	<div class="card-body">
-                        		<div width="100%">
-                        			<canvas id="staffProportion"></canvas>
-                        		</div>
-                        	</div>
-                        </div>
+							<div class="col-xl-6">
+								<div class="card mb-4">
+									<div class="card-header">
+										<i class="fas fa-chart-area mr-1"></i>
+										Average Performance For Each Department
+									</div>
+									<div class="card-body"><canvas id="avgPerformanceMini" width="100%" height="40"></canvas></div>
+								</div>
+							</div>
+							<div class="col-xl-6">
+								<div class="card mb-4">
+									<div class="card-header">
+										<i class="fas fa-chart-bar mr-1"></i>
+										Petition Amount
+									</div>
+									<div class="card-body"><canvas id="petitionAmountMini" width="100%" height="40"></canvas></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-xl-6">
+								<div class="card mb-4">
+									<div class="card-header">
+										<i class="fas fa-chart-bar mr-1"></i>
+										Staff Proportion
+									</div>
+									<div class="card-body">
+										<div width="100%">
+											<canvas id="staffProportion"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                        <div class="card mb-4">
-                        	<div class="card-header">
-                        		<i class="fas fa-chart-bar mr-1"></i>
-                        		Average Performance
-                        	</div>
-                        	<div class="card-body"><canvas id="avgPerformance" width="100%" height="40"></canvas></div>
-                        </div>
+							<div class="col-xl-6">
 
-                        <div class="card mb-4">
-                        	<div class="card-header">
-                        		<i class="fas fa-chart-bar mr-1"></i>
-                        		Petition Amount
-                        	</div>
-                        	<div class="card-body"><canvas id="petitionAmount" width="100%" height="40"></canvas></div>
-                        </div>
+								<div class="card mb-4" id="topPerformanceStaff">
+									<div class="card-header">
+										Top Performance Staff
+									</div>
+									<div class="card-body">
+										<table class="table table-hover table-striped table-bordered table-sm">
+											<thead>
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">ID</th>
+													<th scope="col">Name</th>
+													<th scope="col">Department: Position</th>
+													<th scope="col">Score</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% for(var i=1; i<=topPerf.id.length; i++) { %>
+													<tr>
+														<th scope="row"><%= i %></th>
+														<td><%= topPerf.id[i-1] %></td>
+														<td><%= topPerf.name[i-1] %></td>
+														<td><%= topPerf.dep[i-1] %> <br> <%= topPerf.pos[i-1] %> </td>
+														<td><%= topPerf.score[i-1] %></td>
+													</tr>
+												<% } %>
+											</tbody>
+										</table>
+									</div>		
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="card mb-4">
+							<div class="card-header">
+								<i class="fas fa-chart-bar mr-1"></i>
+								Average Performance For Each Department
+							</div>
+							<div class="card-body"><canvas id="avgPerformance" width="100%" height="40"></canvas></div>
+						</div>
+							
+								
+
+						<div class="card mb-4">
+							<div class="card-header">
+								<i class="fas fa-chart-bar mr-1"></i>
+								Petition Amount
+							</div>
+							<div class="card-body"><canvas id="petitionAmount" width="100%" height="40"></canvas></div>
+						</div>
 
 
 
 
 						<h1 id="Forms">Forms</h1></br>
-						<button id="form_add_staff" onclick="location.href='/users/forms/add_staff'">Add New People</button>
-						<button id="form_promote_staff" onclick="location.href='/users/forms/promote_staff'">Promote Staff</button>
-						<button id="form_add_petition" onclick="location.href='/users/forms/add_petition'">Add Petition</button>
-						<button id="form_make_contract" onclick="location.href='/users/forms/make_contract'">Make Contract</button>
-						<button id="form_enroll_course" onclick="location.href='/users/forms/enroll_course'">Enroll Course</button>
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<p>Add new staff infomation</p>
+								</div>
+								<div class="col">
+									<button id="form_add_staff" onclick="location.href='/users/forms/add_staff'" class="btn btn-outline-info">Add New People</button>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<p>Promote Staff to the new department/position</p>
+								</div>
+								<div class="col">
+									<button id="form_promote_staff" onclick="location.href='/users/forms/promote_staff'" class="btn btn-outline-info">Promote Staff</button>
+								</div>	
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<p>Write Petition</p>
+								</div>
+								<div class="col">
+									<button id="form_add_petition" onclick="location.href='/users/forms/add_petition'" class="btn btn-outline-info">Add Petition</button>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<p>Create/renew staff contract</p>
+								</div>
+								<div class="col">
+									<button id="form_make_contract" onclick="location.href='/users/forms/make_contract'" class="btn btn-outline-info">Make Contract</button>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<p>Enroll course for staff</p>
+								</div>
+								<div class="col">
+									<button id="form_enroll_course" onclick="location.href='/users/forms/enroll_course'" class="btn btn-outline-info">Enroll Course</button>
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</main>
 			</div>
@@ -164,23 +246,23 @@
 		var data = {
 		  labels: obj.labels,
 		  datasets: [{
-		    label: 'Petition Amount',
-		    data: obj.amount,
-		    backgroundColor: [
-		      'rgba(255, 99, 132, 0.2)',
-		      'rgba(255, 159, 64, 0.2)',
-		      'rgba(255, 205, 86, 0.2)',
-		      'rgba(75, 192, 192, 0.2)',
-		      'rgba(54, 162, 235, 0.2)'
-		    ],
-		    borderColor: [
-		      'rgb(255, 99, 132)',
-		      'rgb(255, 159, 64)',
-		      'rgb(255, 205, 86)',
-		      'rgb(75, 192, 192)',
-		      'rgb(54, 162, 235)'
-		    ],
-		    borderWidth: 1
+			label: 'Petition Amount',
+			data: obj.amount,
+			backgroundColor: [
+			  'rgba(255, 99, 132, 0.2)',
+			  'rgba(255, 159, 64, 0.2)',
+			  'rgba(255, 205, 86, 0.2)',
+			  'rgba(75, 192, 192, 0.2)',
+			  'rgba(54, 162, 235, 0.2)'
+			],
+			borderColor: [
+			  'rgb(255, 99, 132)',
+			  'rgb(255, 159, 64)',
+			  'rgb(255, 205, 86)',
+			  'rgb(75, 192, 192)',
+			  'rgb(54, 162, 235)'
+			],
+			borderWidth: 1
 		  }]
 		};
 
@@ -188,11 +270,11 @@
 		  type: 'bar',
 		  data: data,
 		  options: {
-		    scales: {
-		      y: {
-		        beginAtZero: true
-		      }
-		    }
+			scales: {
+			  y: {
+				beginAtZero: true
+			  }
+			}
 		  },
 		};
 
@@ -214,14 +296,14 @@
 		var data = {
 		  labels: obj.labels,
 		  datasets: [{
-		    label: 'Staff Proportion',
-		    data: obj.amount,
-		    backgroundColor: [
-		      'rgb(255, 99, 132)',
-		      'rgb(54, 162, 235)',
-		      'rgb(255, 205, 86)'
-		    ],
-		    hoverOffset: 4,
+			label: 'Staff Proportion',
+			data: obj.amount,
+			backgroundColor: [
+			  'rgb(255, 99, 132)',
+			  'rgb(54, 162, 235)',
+			  'rgb(255, 205, 86)'
+			],
+			hoverOffset: 4,
 		  }]
 		};
 
@@ -229,8 +311,8 @@
 		  type: 'pie',
 		  data: data,
 		  options: {
-		  	radius: '45%',
-		  	offset: 0,
+			radius: '45%',
+			offset: 0,
 		  }
 		};
 
@@ -247,21 +329,21 @@
 		var data = {
 		  labels: obj.department,
 		  datasets: [{
-		    axis: 'y',
-		    label: 'last month staff\'s performance',
-		    data: obj.score,
-		    fill: false,
-		    backgroundColor: [
-		      'rgba(255, 99, 132, 0.2)',
-		      'rgba(255, 159, 64, 0.2)',
-		      'rgba(255, 205, 86, 0.2)'
-		    ],
-		    borderColor: [
-		      'rgb(255, 99, 132)',
-		      'rgb(255, 159, 64)',
-		      'rgb(255, 205, 86)'
-		    ],
-		    borderWidth: 1
+			axis: 'y',
+			label: 'last month staff\'s performance',
+			data: obj.score,
+			fill: false,
+			backgroundColor: [
+			  'rgba(255, 99, 132, 0.2)',
+			  'rgba(255, 159, 64, 0.2)',
+			  'rgba(255, 205, 86, 0.2)'
+			],
+			borderColor: [
+			  'rgb(255, 99, 132)',
+			  'rgb(255, 159, 64)',
+			  'rgb(255, 205, 86)'
+			],
+			borderWidth: 1
 		  }]
 		};
 
@@ -269,25 +351,30 @@
 		  type: 'line',
 		  data: data,
 		  options: {
-		    indexAxis: 'y',
-		    showLine: false,
-		    pointRadius: 5,
-		    scales: {
-		      x: {
-		        beginAtZero: true,
-		      	grid: {
-		      		display: false
-		      	}
-		      },
-		      y: {
-		      	offset: true
-		      }
-		    }
+			indexAxis: 'y',
+			showLine: false,
+			pointRadius: 5,
+			scales: {
+			  x: {
+				beginAtZero: true,
+				grid: {
+					display: false
+				}
+			  },
+			  y: {
+				offset: true
+			  }
+			}
 		  }
 		};
 
 		var pointChart = new Chart(
 			document.getElementById('avgPerformance'),
+			config
+		);
+
+		var pointChartMini = new Chart(
+			document.getElementById('avgPerformanceMini'),
 			config
 		);
 	</script>
