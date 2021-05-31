@@ -214,6 +214,9 @@ function addPetition(req, res){
 function makeContract(req, res){
 
 	// add value retrieving here
+	const staffID = req.body.staffID;
+	const startDate = req.body.startDate;
+	const endDate = req.body.endDate;
 
 	const queryOut = `SELECT MAX(Contract_ID) AS recentCon
 		FROM contract;`;
@@ -233,6 +236,14 @@ function makeContract(req, res){
 			}
 
 			// add sum query here
+			const queryIn = `INSERT INTO contract
+					VALUES(?, ?, ?, ?)`;
+			db.query(queryIn, [contractID, staffID, startDate, endDate], 
+			function(err, result) {
+				if(err) throw err;
+				console.log(result);
+			})
+
 
 		})
 	} catch (e) {
@@ -314,6 +325,8 @@ function enrollCourse(req, res){
 function recruitStaff(req, res){
 
 	// add value retrieving here
+	const recruitID = req.body.recruitID;
+	const staffID = req.body.staffID;
 
 	const queryOut = `SELECT MAX(RecruitApply_ID) AS recentApply
 		FROM recruit_apply;`;
@@ -333,6 +346,13 @@ function recruitStaff(req, res){
 			}
 
 			// add sum query here
+			const queryIn = `INSERT INTO recruit_apply
+					VALUES(?, ?, ?)`;
+			db.query(queryIn, [recruitApplyID, recruitID, staffID], 
+			function(err, result) {
+				if(err) throw err;
+				console.log(result);
+			})
 
 		})
 	} catch (e) {
