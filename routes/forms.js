@@ -8,7 +8,9 @@ const isLoggined = function(req, res, next) {
 		res.redirect('/login');
 	}
 	res.locals.message = req.session.message;
+	res.locals.staffInfo = req.session.staffInfo;
 	delete req.session.message;
+	delete req.session.staffInfo;
 	next();
 };
 
@@ -152,25 +154,26 @@ function promoteStaff(req, res){
                         } else {
                                 console.log('R E S U L T');
                                 console.log(result);
-                                req.session.firstName = "test firstName" ;
+                                // req.session.firstName = "test firstName" ;
 
-                                // req.session.staffInfo = {
-                                //         firstName: "test complete?"
-                                //         // firstName: result[0].Staff_FirstName,
-                                //         // lastName: result[0].Staff_LastName,
-                                //         // departmentID: result[0].Department_ID,
-                                //         // positionID: result[0].Position_ID,
-                                //         // departmentName: result[0].Department_Name,
-                                //         // positionName: result[0].Position_Name
-                                // };
+                                req.session.staffInfo = {
+                                        // firstName: "test complete?"
+                                        firstName: result[0].Staff_FirstName,
+                                        lastName: result[0].Staff_LastName,
+                                        departmentID: result[0].Department_ID,
+                                        positionID: result[0].Position_ID,
+                                        departmentName: result[0].Department_Name,
+                                        positionName: result[0].Position_Name
+                                };
                                 res.redirect('/forms/' + req.params.form_type);
                         }
                 })
         } catch (e) {
                 console.log('error out here????????????');
                 throw err;
+                res.redirect('/forms/' + req.params.form_type);
         }
-        res.redirect('/forms/' + req.params.form_type);
+        // res.redirect('/forms/' + req.params.form_type);
 }
 
 function addPetition(req, res){
