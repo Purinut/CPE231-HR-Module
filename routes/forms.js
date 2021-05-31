@@ -278,7 +278,13 @@ function enrollCourse(req, res){
 								WHERE Course_ID = ?`, [courseID], function(err,result){
 									if(err) throw err;
 									console.log(result);
+									req.session.message = {
+										type: 'success',
+										message: 'Enroll Success!'
+									};
+									res.redirect('/forms/' + req.params.form_type);
 								})
+							//res.redirect('/forms/' + req.params.form_type);
 						});
 					else{
 						//no availble seat
@@ -286,6 +292,7 @@ function enrollCourse(req, res){
 							type: 'failed',
 							message: 'No available seat!'
 						};
+						res.redirect('/forms/' + req.params.form_type);
 					}
 				}else{
 					//this course has been completed
@@ -293,13 +300,15 @@ function enrollCourse(req, res){
 						type: 'failed',
 						message: 'This course has been completed!'
 					};
+					res.redirect('/forms/' + req.params.form_type);
 				}
 			})
 		})
 	} catch (e) {
 		throw e;
+		res.redirect('/forms/' + req.params.form_type);
 	}
-	res.redirect('/forms/' + req.params.form_type);
+	//res.redirect('/forms/' + req.params.form_type);
 }
 
 function recruitStaff(req, res){

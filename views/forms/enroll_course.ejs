@@ -125,11 +125,15 @@
 						</div>
 						<p style="color: white;">enroll in</p>
 						<% if(message) { %>
-						  <% if(message.type == 'failed') { %>
-							<div class="alert-message"> 
-							  <strong><%= message.message %></strong>
-							</div>
-						  <% } %>
+							<% if(message.type == 'failed') { %>
+								<div class="alert-message"> 
+								  <strong><%= message.message %></strong>
+								</div>
+						 	<% } else if(message.type == 'success') { %>
+							  	<div class="success-message"> 
+								  <strong><%= message.message %></strong>
+								</div>
+							<% } %>
 						<% } %>
 						<input type="submit" value="Submit" class="submit-button">
 						

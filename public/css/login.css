@@ -53,3 +53,9 @@ body {
 .alert-success {
   text-align: center;
 }
+
+.success-message {
+  text-align: center;
+  margin: 2%;
+  color: lightgreen;
+}
