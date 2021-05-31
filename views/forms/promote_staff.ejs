@@ -19,29 +19,40 @@
 				width: 50%;
 			}
 
+			.form-box-mini {
+				margin-left: auto;
+				margin-right: auto;
+				width: 300px;
+                height: 150px;
+				padding: 0%;
+				/* border: 1px solid tomato; */
+			}
+
             .form-box {
 				margin-left: auto;
 				margin-right: auto;
 				width: 800px;
-                height: 400px;
+                height: 300px;
 				padding: 0%;
-				border: 1px solid aqua;
+				/* border: 1px solid springgreen; */
 			}
 
 			.form-box-left {
+				text-align: left;
                 float: left;
 				width: 300px;
-				height: 150px;
+				height: 300px;
 				padding: 0%;
-				border: 1px solid aqua;
+				/* border: 1px solid blue; */
 			}
 
             .form-box-right {
+				text-align: left;
                 float: right;
 				width: 300px;
-				height: 150px;
+				height: 300px;
 				padding: 0%;
-                border: 1px solid rebeccapurple;
+                /* border: 1px solid rebeccapurple; */
             }
 
 			input, textarea {
@@ -52,19 +63,18 @@
 
 			label {
 				width: 45%;
-				margin-top: 5px;
-				margin-bottom: 5px;
+				margin-top: 10px;
+				margin-bottom: 0px;
 			}
 
 			select {
-				width: 50%;
+				width: 100%;
 				margin-top: 5px;
 				margin-bottom: 5px;
 			}
 
 			.submit-button {
 				align-self: center;
-				margin-top: 150px;
 				width: 90px;
 				background-color: #8091E7;
 				font-size: large;
@@ -115,60 +125,39 @@
 			<div id="layoutSidenav_content" class="form-page">
 				<main>
 					<h1 style="margin-bottom: 50px;">Promote Staff</h1>
-					<form method="post" class="form-box">
+					<form method="POST" class="form-box-mini">
+						<input type="text" name="staffID" placeholder="Staff ID | ST000 - ST999" required>
+						<input type="submit" value="Search" class="submit-button">
+					</form>
+					<% if(staffInfo && departPos && departPosLength) { %>
+					<form method="POST" class="form-box">
                         <div class="form-box-left">
-                            <input type="text" name="staffID" placeholder="Staff ID" required>
-							<% if(staffInfo) { %>
-								<div>
-									<p><%= staffInfo.firstName %></p>
-								</div>
-							<% } %>
-							
+							<label for="StaffID">StaffID:</label>
+							<input id="StaffID" value="<%= staffInfo.staffID %>" readonly>
+							<label for="Name">Name:</label>
+							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
+							<label for="Department">Department:</label>
+							<input id="Department" value="<%= staffInfo.departmentName %>" readonly>
+							<label for="Position">Position:</label>
+							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
                         </div>
                         <div class="form-box-right">
-                            <!-- <input type="text" name="departmentID" placeholder="Department ID" required>
-                            <input type="text" name="positionID" placeholder="Position ID" required> -->
+							<label for="SelectPosition">Position:</label><br>
+							<select name="SelectPosition" id="SelectPosition">								
+								<% for(i=0; i<departPosLength; i++){ %>
+										<option value="<%= departPos[i].positionName %>"><%= departPos[i].positionName %></option>
+								<% } %>
+							</select>
 							<p style="margin-top: 5px;">Promote Date: <span id="showCurDate"></span></p>
 							<input type="hidden" name="curDate" id="curDate">
                         </div>
-                        <p style="color: white;">promoted to</p>
-						<input type="submit" value="Submit" class="submit-button">
-						<!-- <ul class="quick-contact">
-							<li class="phone"><strong>Sales: </strong><span id="sales-number">0987 989898</span></li>
-							<li class="email"><strong>Email: </strong><a href="#" title="Sample link">info@yourdomain.com</a></li>
-							<li class="sites"><strong>Sites: </strong>
-							  <select id="inputbox" onchange="updateSalesNumber()">
-								<option value="USA">USA</option>
-								<option value="USA">UK</option>
-								<option value="France">France</option>
-								<option value="Japan">Japan</option>
-								<option value="South Africa">South Africa</option>
-							  </select>
-						  </li>
-						</ul> -->
+                        <p style="color: white; padding-top: 50px;">promoted to</p>
+						<input type="submit" value="Promote" class="submit-button" style="margin-top: 230px;">					
 					</form>
+					<% } %>
 				</main>
 			</div>
 
-	<!-- <script>
-		var salesNumbers = {  // store all phone numbers in an object here
-		'USA': '123 123',   // you can easily add/remove/modify the country/numbers here
-		'UK': '456 456',
-		'France': '789 789',
-		'Japan': '111 222',
-		'South Africa': '333 444'
-		}
-
-		function updateSalesNumber(){  // this will be called when dropdown value will be changed
-		var inputBox = document.getElementById("inputbox"); 
-		
-		// get the selected option
-		var selectedOption = inputBox.options[inputBox.selectedIndex].value;
-		
-		// update the number on the webpage
-		document.getElementById("sales-number").innerHTML = salesNumbers[selectedOption];
-		}
-	</script>			 -->
 	<script>
 		var today = new Date();
 		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -183,10 +172,4 @@
 
 	</body>
 
-
-
-
 </html>
-
-
-
