@@ -1,5 +1,5 @@
-> make_contract, start date after current date, end date come after start date only
-> enroll_course restrict courseID to which in (InProgress, InComing) and prevent enroll ซ้ำ course เดิม
+> enroll_course backend remove check
+
 
 > add message to each form
 
