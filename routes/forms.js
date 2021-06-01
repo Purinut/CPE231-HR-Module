@@ -169,52 +169,53 @@ function promoteStaff(req, res){
 						};
 						const staffDepartID = result[0].Department_ID;
 						const staffPosID = result[0].Position_ID;
-						try {
-							db.query(`SELECT d.Department_ID, d.Department_Name, p.Position_ID, p.Position_Name
-								FROM Department d JOIN Position p
-									ON d.Department_ID = p.Department_ID
-									WHERE (d.Department_ID, p.Position_ID) != (?, ?);`, [staffDepartID, staffPosID],
-								function(err, result2) {
-									if (err) throw err;
-									console.log('query success');
-									let departPos = [];
-									let departIDList = [];
-									let j = 0;
-									departIDList.push({
-										departmentID: result2[0].Department_ID,
-										departmentName: result2[0].Department_Name
-									});
-									j++;
-									for(i=0; i<result2.length; i++) {
-										let curID = result2[i].Department_ID;
-										if (curID != departIDList[j-1].departmentID) {
-											departIDList.push({
-												departmentID: result2[i].Department_ID,
-												departmentName: result2[i].Department_Name
-											});
-											j++;
-										}
-										if (departPos.length < j) {
-											departPos[j-1] = [];
-											departPos[j-1].push({
-												positionID: result2[i].Position_ID,
-												positionName: result2[i].Position_Name
-											});
-										} else {
-											departPos[j-1].push({
-												positionID: result2[i].Position_ID,
-												positionName: result2[i].Position_Name
-											});
-										}										
-									}
-									req.session.departIDList = departIDList;
-									req.session.departPos = departPos;
-									res.redirect('/forms/' + req.params.form_type);
-								}
-							)
-						} catch (e) {
-							console.log('query depart pos error');
-						}
+						// try {
+						// 	db.query(`SELECT d.Department_ID, d.Department_Name, p.Position_ID, p.Position_Name
+						// 		FROM Department d JOIN Position p
+						// 			ON d.Department_ID = p.Department_ID
+						// 			WHERE (d.Department_ID, p.Position_ID) != (?, ?);`, [staffDepartID, staffPosID],
+						// 		function(err, result2) {
+						// 			if (err) throw err;
+						// 			console.log('query success');
+						// 			let departPos = [];
+						// 			let departIDList = [];
+						// 			let j = 0;
+						// 			departIDList.push({
+						// 				departmentID: result2[0].Department_ID,
+						// 				departmentName: result2[0].Department_Name
+						// 			});
+						// 			j++;
+						// 			for(i=0; i<result2.length; i++) {
+						// 				let curID = result2[i].Department_ID;
+						// 				if (curID != departIDList[j-1].departmentID) {
+						// 					departIDList.push({
+						// 						departmentID: result2[i].Department_ID,
+						// 						departmentName: result2[i].Department_Name
+						// 					});
+						// 					j++;
+						// 				}
+						// 				if (departPos.length < j) {
+						// 					departPos[j-1] = [];
+						// 					departPos[j-1].push({
+						// 						positionID: result2[i].Position_ID,
+						// 						positionName: result2[i].Position_Name
+						// 					});
+						// 				} else {
+						// 					departPos[j-1].push({
+						// 						positionID: result2[i].Position_ID,
+						// 						positionName: result2[i].Position_Name
+						// 					});
+						// 				}										
+						// 			}
+						// 			req.session.departIDList = departIDList;
+						// 			req.session.departPos = departPos;
+						// 			res.redirect('/forms/' + req.params.form_type);
+						// 		}
+						// 	)
+						// } catch (e) {
+						// 	console.log('query depart pos error');
+						// }
+						res.redirect('/forms/' + req.params.form_type);
 					} else {
 						console.log('empty query');
 						res.redirect('/forms/' + req.params.form_type);
@@ -227,6 +228,20 @@ function promoteStaff(req, res){
 		}
 	} else {
 		console.log('position selected');
+		const staffID = req.body.StaffID;
+        const promoteDate = req.body.curDate;
+        const departmentID = req.body.SelectDepartment;
+        const positionID = req.body.SelectPosition;
+        try {
+                const queryIn = `INSERT INTO promote_history
+                        VALUES(?, ?, ?, ?)`;
+                db.query(queryIn, [staffID, promoteDate, departmentID, positionID], function(err, result) {
+                        if(err) throw err;
+                        console.log(result);
+                })
+        } catch (e) {
+               console.log(e);
+        }
 		res.redirect('/forms/' + req.params.form_type);
 	}
 	

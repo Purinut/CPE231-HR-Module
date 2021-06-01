@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<style>
 			.form-page {
 				background: #434343;
@@ -129,12 +130,12 @@
 						<input type="text" name="staffID" placeholder="Staff ID | ST000 - ST999" required>
 						<input type="submit" value="Search" class="submit-button">
 					</form>
-					<% if(staffInfo && departIDList && departPos) { %>
+					<% if(staffInfo) { %>
 						
 					<form method="POST" class="form-box">
                         <div class="form-box-left">
 							<label for="StaffID">StaffID:</label>
-							<input id="StaffID" value="<%= staffInfo.staffID %>" readonly>
+							<input id="StaffID" name="StaffID" value="<%= staffInfo.staffID %>" readonly>
 							<label for="Name">Name:</label>
 							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
 							<label for="Department">Department:</label>
@@ -144,11 +145,8 @@
                         </div>
                         <div class="form-box-right">
 							<label for="SelectDepartment">Department:</label><br>
-							<select name="SelectDepartment" id="SelectDepartment" onchange="chooseDepart()">
+							<select name="SelectDepartment" id="SelectDepartment">
 								<option>-</option>
-								<% for(i=0; i<departIDList.length; i++){ %>
-									<option value="<%= i %>"><%= departIDList[i].departmentName %></option>
-								<% } %>
 							</select>
 							
 							<label for="SelectPosition">Position:</label><br>
@@ -173,13 +171,33 @@
 		document.getElementById("curDate").value = date;
 	</script>
 	<script>
-		function chooseDepart() {		
-			var chosenDepart = document.getElementById("SelectDepartment").value;
-			document.getElementById("test").innerHTML = chosenDepart;
-			document.getElementById(chosenDepart);
-		}
+		$(document).ready(function() {
+			var url = "/api/deptPost";
+
+			$.getJSON(url, function(data){
+				console.log(data);
+				$.each(data, function(index, value){
+					$("#SelectDepartment").append('<option value="' + value.Department_ID + '">' + value.Department_Name + '</option>');
+				});
+			});
+
+			$('#SelectDepartment').change(function() {
+				var deptID = this.options[this.selectedIndex].value;
+				console.log(deptID);
+
+				$('#SelectPosition').empty();
+
+				var url = "/api/deptPost/" + deptID;
+				$.getJSON(url, function(data){
+					console.log(data);
+					$.each(data, function(index, value){
+						$('#SelectPosition').append('<option value="' + value.Position_ID + '">' + value.Position_Name + '</option>');
+					})
+				})
+			});
+		});
 	</script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="/js/scripts.js"></script>
