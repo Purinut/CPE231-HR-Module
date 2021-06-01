@@ -61,7 +61,7 @@
 						<input type="submit" value="Search" class="submit-button">
 					</form>
 
-					<% if(staffInfo) { %>
+					<% if(staffInfo && courseList) { %>
 
 					<form method="post" class="form-box">
 						<div class="form-box-left">
@@ -77,7 +77,12 @@
 
 						<div class="form-box-right">
 							<label for="courseID">Course's ID:</label>
-							<input type="text" id="courseID" name="courseID" placeholder="Course ID" required>
+							<select id="courseID" name="courseID" required>
+								<% for(i=0; i<courseList.length; i++) { %>
+									<option value="<%= courseList[i].courseID %>"><%= courseList[i].courseName %></option>
+								<% } %>
+							</select>
+							<!-- <input type="text" id="courseID" name="courseID" placeholder="Course ID" required> -->
 						</div>
 
 						<p style="color: white; padding-top: 40px;">enroll in</p>

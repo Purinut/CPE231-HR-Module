@@ -36,7 +36,9 @@ router.get('/:form_type', isLoggined, function(req, res){
 		res.locals.message = req.session.message;
 		delete req.session.message;
 		res.locals.staffInfo = req.session.staffInfo;
-		delete req.session.staffInfo;
+		delete req.session.staffInfo;		
+		res.locals.courseList = req.session.courseList;
+		delete req.session.courseList;
 		res.render('forms/enroll_course',{userSession: userSession});
 	}
 	else if(req.params.form_type == 'recruit_staff'){
@@ -353,7 +355,7 @@ function makeContract(req, res){
 			res.redirect('/forms/' + req.params.form_type);
 		}
 	} else {
-		console.log('position selected');
+		console.log('startDate generated');
 		const staffID = req.body.staffID;
 		const startDate = req.body.startDate;
 		const endDate = req.body.endDate;
@@ -471,7 +473,29 @@ function enrollCourse(req, res){
 							departmentName: result[0].Department_Name,
 							positionName: result[0].Position_Name
 						};
-						res.redirect('/forms/' + req.params.form_type);
+						try {
+							db.query(`SELECT Course_ID, Course_Name
+								FROM train_course
+								WHERE Status IN
+									('InProgress', 'InComing') AND
+									Course_Seat > 0
+								ORDER BY Course_Name;`,
+								function(err, result) {
+									let courseList = [];
+									for(i=0; i<result.length; i++) {
+										courseList.push({
+											courseID: result[i].Course_ID,
+											courseName: result[i].Course_Name
+										});
+									}
+									req.session.courseList = courseList;
+									res.redirect('/forms/' + req.params.form_type);
+								}
+							)
+						} catch(err) {
+							console.log('query from train_course error');
+							throw err;
+						}
 					} else {
 						console.log('empty query');
 						res.redirect('/forms/' + req.params.form_type);
@@ -483,7 +507,7 @@ function enrollCourse(req, res){
 			res.redirect('/forms/' + req.params.form_type);
 		}
 	} else {
-		console.log('position selected');
+		console.log('course selected');
 		const staffID = req.body.staffID;
 		const courseID = req.body.courseID;
 		const queryOut = `SELECT MAX(Enroll_ID) AS recentEnroll
@@ -502,8 +526,7 @@ function enrollCourse(req, res){
 				} else {
 					return console.log(error);
 				}
-				const queryIn = `INSERT INTO enroll_course 
-						VALUES(?, ?, ?); `;
+				const queryIn = `INSERT INTO enroll_course VALUES(?, ?, ?); `;
 				const queryCheck = `SELECT Course_Seat, Status FROM train_course WHERE course_ID = ?`;
 				db.query(queryCheck, [courseID], function(err, result){
 					if(result[0].Status == 'InProgress' || result[0].Status == 'InComing'){
@@ -624,7 +647,7 @@ function recruitStaff(req, res){
 			res.redirect('/forms/' + req.params.form_type);
 		}
 	} else {
-		console.log('position selected');
+		console.log('recruitID selected');
 		const recruitID = req.body.recruitID;
 		const candID = req.body.candID;
 		const queryOut = `SELECT MAX(RecruitApply_ID) AS recentApply
