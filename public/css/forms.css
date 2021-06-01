@@ -1,0 +1,57 @@
+.form-page {
+    background: #434343;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 50px;
+    width: 50%;
+}
+
+.form-box-mini {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 150px;
+    padding: 0%;
+    /* border: 1px solid tomato; */
+}
+
+.form-box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 300px;
+    padding: 0%;
+    /* border: 1px solid springgreen; */
+}
+
+.form-box-left {
+    text-align: left;
+    float: left;
+    width: 300px;
+    height: 300px;
+    padding: 0%;
+    /* border: 1px solid blue; */
+}
+
+.form-box-right {
+    text-align: left;
+    float: right;
+    width: 300px;
+    height: 300px;
+    padding: 0%;
+    /* border: 1px solid rebeccapurple; */
+}
+
+input, textarea, select, label {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.submit-button {
+    align-self: center;
+    width: 90px;
+    background-color: #8091E7;
+    font-size: large;
+    color: #FFFFFF;
+}
