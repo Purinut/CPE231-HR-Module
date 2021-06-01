@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	</head>
 
 
@@ -46,15 +47,15 @@
 								<div class="sb-nav-link-icon"><i class="fas fa-home"></i> </div>
 								Home
 							</a>
-							<a class="nav-link" href="staff.html">
+							<a class="nav-link" href="#avgPerformance">
 								<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
 								Staff
 							</a>							
-							<a class="nav-link" href="training.html">
+							<a class="nav-link" href="#">
 								<div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>
 								Training
 							</a>
-							<a class="nav-link" href="recruitment.html">
+							<a class="nav-link" href="#">
 								<div class="sb-nav-link-icon">
 								<i class="fas fa-plus-circle"></i></div>
 								Recruitment
@@ -71,19 +72,171 @@
 				<main>
 					<div class="container-fluid">
 						<h1>Assistant Dashboard</h1>
+						<ol class="breadcrumb mb-4">
+							<li class="breadcrumb-item active">Dashboard</li>
+						</ol>
+
+						<div class="row">
+							<div class="col-xl-6">
+								<div class="card mb-4">
+									<div class="card-header">
+										<i class="fas fa-chart-area mr-1"></i>
+										Average Performance For Each Department
+									</div>
+									<div class="card-body"><canvas id="avgPerformanceMini" width="100%" height="40"></canvas></div>
+								</div>
+							</div>
+
+							<div class="col-xl-6">
+
+								<div class="card mb-4" id="topPerformanceStaff">
+									<div class="card-header">
+										Top Performance Staff
+									</div>
+									<div class="card-body">
+										<table class="table table-hover table-striped table-bordered table-sm">
+											<thead>
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">ID</th>
+													<th scope="col">Name</th>
+													<th scope="col">Department: Position</th>
+													<th scope="col">Score</th>
+												</tr>
+											</thead>
+											<tbody id="performanceContentTable">
+											</tbody>
+										</table>
+									</div>		
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="card mb-4">
+							<div class="card-header">
+								<i class="fas fa-chart-bar mr-1"></i>
+								Average Performance For Each Department
+							</div>
+							<div class="card-body"><canvas id="avgPerformance" width="100%" height="40"></canvas></div>
+						</div>
 
 						<h1 id="Forms">Forms</h1></br>
-						<button id="form_add_petition" onclick="location.href='/users/forms/add_petition'">Add Petition</button>
-						<button id="form_recruit_staff" onclick="location.href='/users/forms/recruit_staff'">Recruit New Staff</button>
+						<div class="container">
+							<div class="row">
+									<div class="col">
+										<p>Write Petition</p>
+									</div>
+									<div class="col">
+										<button id="form_add_petition" onclick="location.href='/users/forms/add_petition'" class="btn btn-outline-info">Add Petition</button>
+									</div>
+								</div>
+
+							<div class="row">
+								<div class="col">
+									<p>Recruit new staff</p>
+								</div>
+								<div class="col">
+									<button id="form_recruit_staff" onclick="location.href='/users/forms/recruit_staff'" class="btn btn-outline-info">Recruit</button>
+								</div>	
+							</div>
+						</div>
+						
 
 					</div>
 				</main>
 			</div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="/js/scripts.js"></script>
+
+	<!-- chart -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var url = "/api/get_top_performance";
+			$.getJSON(url, function(top_data){
+				console.log(top_data)
+				for(var i=1; i <= top_data.id.length; i++){
+					$('#performanceContentTable').append(`<tr> 
+															<th scope="row">` + i + `</th>
+															<td>` + top_data.id[i-1] + `</td>
+															<td>` + top_data.name[i-1] + `</td>
+															<td>` + top_data.dep[i-1] + `<br>` + top_data.pos[i-1] + `</td>
+															<td>` + top_data.score[i-1] + `</td>
+														</tr>`);
+				}
+				
+			})
+		})
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var url = "/api/get_staff_performance"
+
+			$.getJSON(url, function(avg_perf_data){
+				console.log(avg_perf_data);
+				var obj = avg_perf_data;
+
+				var data = {
+				  labels: obj.department,
+				  datasets: [{
+					axis: 'y',
+					label: 'last month staff\'s performance',
+					data: obj.score,
+					fill: false,
+					backgroundColor: [
+					  'rgba(255, 99, 132, 0.2)',
+					  'rgba(255, 159, 64, 0.2)',
+					  'rgba(255, 205, 86, 0.2)'
+					],
+					borderColor: [
+					  'rgb(255, 99, 132)',
+					  'rgb(255, 159, 64)',
+					  'rgb(255, 205, 86)'
+					],
+					borderWidth: 1
+				  }]
+				};
+
+				var config = {
+				  type: 'line',
+				  data: data,
+				  options: {
+					indexAxis: 'y',
+					showLine: false,
+					pointRadius: 5,
+					scales: {
+					  x: {
+						beginAtZero: true,
+						grid: {
+							display: false
+						}
+					  },
+					  y: {
+						offset: true
+					  }
+					}
+				  }
+				};
+
+				var pointChart = new Chart(
+					document.getElementById('avgPerformance'),
+					config
+				);
+
+				var pointChartMini = new Chart(
+					document.getElementById('avgPerformanceMini'),
+					config
+				);
+			})
+		})
+
+		
+	</script>
 
 	</body>
 
