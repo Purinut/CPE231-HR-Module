@@ -33,8 +33,6 @@ router.get('/:form_type', isLoggined, function(req, res){
 		res.render('forms/make_contract',{userSession: userSession});
 	}
 	else if(req.params.form_type == 'enroll_course'){
-		res.locals.message = req.session.message;
-		delete req.session.message;
 		res.locals.staffInfo = req.session.staffInfo;
 		delete req.session.staffInfo;		
 		res.locals.courseList = req.session.courseList;
@@ -99,19 +97,27 @@ function addStaff(req, res){
 				return console.log(error);
 			}
 			
-			// let queryIn = 'INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)\
-			//         VALUES(\'' + staffID + '\',\'' + firstName + '\',\'' + lastName + '\',\'' + sex + '\',\'' + DoB + '\',\'' + address + '\',\'' + email + '\',\'' + tel + '\',\'' + status + '\');';
 			const queryIn = `INSERT INTO staff_info(Staff_ID, Staff_FirstName, Staff_LastName, Staff_Sex, Staff_DoB, Staff_Address, Staff_Email, Staff_Tel, Staff_Status)
 				VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-			db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
-				if(err) throw err;
-				console.log(result);
-			})
+			try{
+				db.query(queryIn, [staffID, firstName, lastName, sex, DoB, address, email, tel, status], function(err, result) {
+					if(err) throw err;
+					console.log(result);
+					req.session.message = {
+						type: 'success',
+						message: 'Add Staff/Candidate Success!'
+					};
+					res.redirect('/forms/' + req.params.form_type);
+				})
+			} catch (err) {
+				console.log(err);
+				res.redirect('/forms/' + req.params.form_type);
+			}
 		})
-	} catch (e) {
-		throw e;
+	} catch (err) {
+		console.log(err);
+		res.redirect('/forms/' + req.params.form_type);
 	}
-	res.redirect('/forms/' + req.params.form_type);
 }
 
 // function promoteStaff(req, res){
@@ -178,52 +184,6 @@ function promoteStaff(req, res){
 							departmentName: result[0].Department_Name,
 							positionName: result[0].Position_Name
 						};
-						// try {
-						// 	db.query(`SELECT d.Department_ID, d.Department_Name, p.Position_ID, p.Position_Name
-						// 		FROM Department d JOIN Position p
-						// 			ON d.Department_ID = p.Department_ID
-						// 			WHERE (d.Department_ID, p.Position_ID) != (?, ?);`, [staffDepartID, staffPosID],
-						// 		function(err, result2) {
-						// 			if (err) throw err;
-						// 			console.log('query success');
-						// 			let departPos = [];
-						// 			let departIDList = [];
-						// 			let j = 0;
-						// 			departIDList.push({
-						// 				departmentID: result2[0].Department_ID,
-						// 				departmentName: result2[0].Department_Name
-						// 			});
-						// 			j++;
-						// 			for(i=0; i<result2.length; i++) {
-						// 				let curID = result2[i].Department_ID;
-						// 				if (curID != departIDList[j-1].departmentID) {
-						// 					departIDList.push({
-						// 						departmentID: result2[i].Department_ID,
-						// 						departmentName: result2[i].Department_Name
-						// 					});
-						// 					j++;
-						// 				}
-						// 				if (departPos.length < j) {
-						// 					departPos[j-1] = [];
-						// 					departPos[j-1].push({
-						// 						positionID: result2[i].Position_ID,
-						// 						positionName: result2[i].Position_Name
-						// 					});
-						// 				} else {
-						// 					departPos[j-1].push({
-						// 						positionID: result2[i].Position_ID,
-						// 						positionName: result2[i].Position_Name
-						// 					});
-						// 				}
-						// 			}
-						// 			req.session.departIDList = departIDList;
-						// 			req.session.departPos = departPos;
-						// 			res.redirect('/forms/' + req.params.form_type);
-						// 		}
-						// 	)
-						// } catch (e) {
-						// 	console.log('query depart pos error');
-						// }
 						res.redirect('/forms/' + req.params.form_type);
 					} else {
 						console.log('empty query');
@@ -231,7 +191,7 @@ function promoteStaff(req, res){
 					}
 				}
 			)
-		} catch (e) {
+		} catch (err) {
 			console.log('error out here????????????');
 			res.redirect('/forms/' + req.params.form_type);
 		}
@@ -241,17 +201,22 @@ function promoteStaff(req, res){
         const promoteDate = req.body.curDate;
         const departmentID = req.body.SelectDepartment;
         const positionID = req.body.SelectPosition;
-        try {
-			const queryIn = `INSERT INTO promote_history
+        const queryIn = `INSERT INTO promote_history
 				VALUES(?, ?, ?, ?)`;
+        try {			
 			db.query(queryIn, [staffID, promoteDate, departmentID, positionID], function(err, result) {
 				if(err) throw err;
 				console.log(result);
+				req.session.message = {
+					type: 'success',
+					message: 'Promote Success!'
+				};
+				res.redirect('/forms/' + req.params.form_type);
 			})
-        } catch (e) {
-			console.log(e);
+        } catch (err) {
+			console.log(err);
+			res.redirect('/forms/' + req.params.form_type);
         }
-		res.redirect('/forms/' + req.params.form_type);
 	}
 }
 
@@ -277,16 +242,27 @@ function addPetition(req, res){
 			}
 			const queryIn = `INSERT INTO petition
 					VALUES(?, ?, ?, ?, ?)`;
-			db.query(queryIn, [petitionID, staffID, petitionDate, petitionContent, 'Unread'], 
-			function(err, result) {
-				if(err) throw err;
-				console.log(result);
-			})
+			try{
+				db.query(queryIn, [petitionID, staffID, petitionDate, petitionContent, 'Unread'], 
+				function(err, result) {
+					if(err) throw err;
+					console.log(result);
+					req.session.message = {
+						type: 'success',
+						message: 'Send Petition Success!'
+					};
+					res.redirect('/forms/' + req.params.form_type);
+				})
+			}
+			catch (err) {
+				console.log(err);
+				res.redirect('/forms/' + req.params.form_type);
+			}
 		})
-	} catch (e) {
-		throw e;
+	} catch (err) {
+		console.log(err);
+		res.redirect('/forms/' + req.params.form_type);
 	}
-	res.redirect('/forms/' + req.params.form_type);
 }
 
 // function makeContract(req, res){
@@ -377,16 +353,26 @@ function makeContract(req, res){
 				}
 				const queryIn = `INSERT INTO contract
 						VALUES(?, ?, ?, ?)`;
-				db.query(queryIn, [contractID, staffID, startDate, endDate], 
-				function(err, result) {
-					if(err) throw err;
-					console.log(result);
-				})
+				try {
+					db.query(queryIn, [contractID, staffID, startDate, endDate], 
+					function(err, result) {
+						if(err) throw err;
+						console.log(result);
+						req.session.message = {
+							type: 'success',
+							message: 'Make Contract Success!'
+						};
+						res.redirect('/forms/' + req.params.form_type);
+					})
+				} catch (err) {
+					console.log(err)
+					res.redirect('/forms/' + req.params.form_type);
+				}
 			})
-		} catch (e) {
-			throw e;
+		} catch (err) {
+			console.log(err)
+			res.redirect('/forms/' + req.params.form_type);
 		}
-		res.redirect('/forms/' + req.params.form_type);
 	}
 }
 
@@ -527,45 +513,36 @@ function enrollCourse(req, res){
 					return console.log(error);
 				}
 				const queryIn = `INSERT INTO enroll_course VALUES(?, ?, ?); `;
-				const queryCheck = `SELECT Course_Seat, Status FROM train_course WHERE course_ID = ?`;
-				db.query(queryCheck, [courseID], function(err, result){
-					if(result[0].Status == 'InProgress' || result[0].Status == 'InComing'){
-						if(result[0].Course_Seat > 0)
-							db.query(queryIn, [enrollID, courseID, staffID], function(err, result){
-								if(err) throw err;
-								console.log(result);
-								db.query(`UPDATE train_course 
-									SET Course_Seat = Course_Seat - 1
-									WHERE Course_ID = ?`, [courseID], function(err,result){
-										if(err) throw err;
-										console.log(result);
-										req.session.message = {
-											type: 'success',
-											message: 'Enroll Success!'
-										};
-										res.redirect('/forms/' + req.params.form_type);
-									})
+				try{
+					db.query(queryIn, [enrollID, courseID, staffID], function(err, result){
+						if(err) throw err;
+						console.log(result);
+						try {
+							db.query(`UPDATE train_course 
+								SET Course_Seat = Course_Seat - 1
+								WHERE Course_ID = ?`, [courseID], function(err,result){
+									if(err) throw err;
+									console.log(result);
+									req.session.message = {
+										type: 'success',
+										message: 'Enroll Success!'
+									};
+									res.redirect('/forms/' + req.params.form_type);
 							});
-						else{
-							//no availble seat
-							req.session.message = {
-								type: 'failed',
-								message: 'No available seat!'
-							};
+						} catch (err) {
+							console.log(err);
 							res.redirect('/forms/' + req.params.form_type);
 						}
-					}else{
-						//this course has been completed
-						req.session.message = {
-							type: 'failed',
-							message: 'This course has been completed!'
-						};
-						res.redirect('/forms/' + req.params.form_type);
-					}
-				})
+					});
+				} catch (err) {
+					console.log(err);
+					res.redirect('/forms/' + req.params.form_type);
+				}
+				
 			})
-		} catch (e) {
-			throw e;
+		} catch (err) {
+			console.log(err);
+			res.redirect('/forms/' + req.params.form_type);
 		}
 	}
 }
@@ -624,6 +601,7 @@ function recruitStaff(req, res){
 								FROM recruit_spec
 								ORDER BY Recruit_ID;`,
 								function(err, result2) {
+									if(err) throw err;
 									let recruitIDList = [];
 									for(i=0; i<result2.length; i++) {
 										recruitIDList.push(result2[i].Recruit_ID);
@@ -633,8 +611,8 @@ function recruitStaff(req, res){
 								}
 							)
 						} catch(err) {
-							console.log('query Recruit_ID error');
-							throw err;
+							console.log(err);
+							res.redirect('/forms/' + req.params.form_type);
 						}
 					} else {
 						console.log('empty query');
@@ -642,8 +620,8 @@ function recruitStaff(req, res){
 					}
 				}
 			)
-		} catch (e) {
-			console.log('error out here????????????');
+		} catch (err) {
+			console.log(err);
 			res.redirect('/forms/' + req.params.form_type);
 		}
 	} else {
@@ -668,16 +646,26 @@ function recruitStaff(req, res){
 				}
 				const queryIn = `INSERT INTO recruit_apply
 						VALUES(?, ?, ?)`;
-				db.query(queryIn, [recruitApplyID, recruitID, candID], 
-				function(err, result) {
-					if(err) throw err;
-					console.log(result);
-				})
+				try {
+					db.query(queryIn, [recruitApplyID, recruitID, candID], 
+					function(err, result) {
+						if(err) throw err;
+						console.log(result);
+						req.session.message = {
+							type: 'success',
+							message: 'Recruit Success!'
+						};
+						res.redirect('/forms/' + req.params.form_type);
+					})
+				} catch(err) {
+					console.log(err);
+					res.redirect('/forms/' + req.params.form_type);
+				}
 			})
-		} catch (e) {
-			throw e;
+		} catch (err) {
+			console.log(err);
+			res.redirect('/forms/' + req.params.form_type);
 		}
-		res.redirect('/forms/' + req.params.form_type);
 	}
 }
 
