@@ -120,9 +120,16 @@
 				$('#SelectPosition').empty();
 
 				var url = "/api/deptPost/" + deptID;
+				var presentDep = $('#department').val();
+				var presentPos = $('#position').val();
+
 				$.getJSON(url, function(data){
 					$.each(data, function(index, value){
-						$('#SelectPosition').append('<option value="' + value.Position_ID + '">' + value.Position_Name + '</option>');
+						if(presentDep != $('#SelectDepartment').val() && presentPos != value.Position_Name)
+						{
+							$('#SelectPosition').append('<option value="' + value.Position_ID + '">' + value.Position_Name + '</option>');
+						}
+						
 					})
 				})
 			});

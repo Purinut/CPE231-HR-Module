@@ -12,7 +12,8 @@ router.get('/', async function(req, res) {
 
 router.get('/:departmentID', async function(req, res){
 	const deptID = req.params.departmentID;
-	const query = `SELECT Position_ID, Position_Name FROM position WHERE Department_ID = ?`;
+	const query = `SELECT Position_ID, Position_Name FROM position 
+					WHERE Department_ID = ? `;
 	let position = await db(query, [deptID]);
 	console.log(position);
 	res.send(position);

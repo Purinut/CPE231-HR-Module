@@ -1,12 +1,8 @@
-> sign up with name outside database
-
-> add_staff restrict birth date(to past date only)
-> promote_staff prevent promote to current position
 > make_contract, start date after current date, end date come after start date only
 > enroll_course restrict courseID to which in (InProgress, InComing) and prevent enroll ซ้ำ course เดิม
-> recruit_staff restrict recruitID to which is valid
 
 > assistant's UI (report, form button)
+> add message to each form
 
 business rules
 > รับ candidate ต้องเปลี่ยน ID ก่อน -> promote เข้าตำแหน่งที่รับ -> make contract
