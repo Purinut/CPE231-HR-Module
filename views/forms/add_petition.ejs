@@ -98,14 +98,20 @@
 					<h1 style="margin-bottom: 50px;">Add New Petition</h1>
 					<form method="post" class="form-box">
 						<input type="text" id="StaffID" name="staffID" value="<%= userSession.staffID %>" readonly>
-						<label for="PetDate">Petition Date:</label>
-						<input type="date" id="PetDate" name="PetDate" style="width: 50%;" required>						
+						<p style="margin-top: 5px;">Petition Date: <span id="showCurDate"></span></p>
+						<input type="hidden" name="PetDate" id="curDate">
 						<textarea name="content" rows="6" cols="30" placeholder="Add Petition Here" required></textarea></br></br>
 						<input type="submit" value="Submit" class="submit-button">
 					</form>
 				</main>
 			</div>
 
+	<script>
+		var today = new Date();
+		var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+		document.getElementById("showCurDate").innerHTML = date;
+		document.getElementById("curDate").value = date;
+	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
