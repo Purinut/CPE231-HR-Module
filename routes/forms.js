@@ -33,6 +33,8 @@ router.get('/:form_type', isLoggined, function(req, res){
 		res.render('forms/make_contract',{userSession: userSession});
 	}
 	else if(req.params.form_type == 'enroll_course'){
+		res.locals.message = req.session.message;
+		delete req.session.message;
 		res.locals.staffInfo = req.session.staffInfo;
 		delete req.session.staffInfo;
 		res.render('forms/enroll_course',{userSession: userSession});
