@@ -130,6 +130,7 @@
 						<input type="text" name="staffID" placeholder="Staff ID | ST000 - ST999" required>
 						<input type="submit" value="Search" class="submit-button">
 					</form>
+					
 					<% if(staffInfo) { %>
 						
 					<form method="POST" class="form-box">
@@ -143,6 +144,7 @@
 							<label for="Position">Position:</label>
 							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
                         </div>
+
                         <div class="form-box-right">
 							<label for="SelectDepartment">Department:</label><br>
 							<select name="SelectDepartment" id="SelectDepartment">
@@ -157,10 +159,13 @@
 							<p style="margin-top: 5px;">Promote Date: <span id="showCurDate"></span></p>
 							<input type="hidden" name="curDate" id="curDate">
                         </div>
+						
                         <p style="color: white; padding-top: 50px;">promoted to</p>
 						<input type="submit" value="Promote" class="submit-button" style="margin-top: 230px;">
 					</form>
+
 					<% } %>
+					
 				</main>
 			</div>
 

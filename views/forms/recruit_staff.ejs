@@ -115,16 +115,35 @@
 			<div id="layoutSidenav_content" class="form-page">
 				<main>
 					<h1 style="margin-bottom: 50px;">Recruitment Application</h1>
+					<form method="POST" class="form-box-mini">
+						<input type="text" name="staffID" placeholder="Staff ID | ST000 - ST999" required>
+						<input type="submit" value="Search" class="submit-button">
+					</form>
+
+					<% if(staffInfo) { %>
+
 					<form method="post" class="form-box">
                         <div class="form-box-left">
-                            <input type="text" name="staffID" placeholder="Staff ID" required>
-                        </div>                        
+                            <label for="StaffID">StaffID:</label>
+							<input id="StaffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
+							<label for="Name">Name:</label>
+							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
+							<label for="Department">Department:</label>
+							<input id="Department" value="<%= staffInfo.departmentName %>" readonly>
+							<label for="Position">Position:</label>
+							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
+                        </div>  
+
                         <div class="form-box-right">
                             <input type="text" name="recruitID" placeholder="Recruit ID" required>
                         </div>
+
                         <p style="color: white;">apply for</p>
-						<input type="submit" value="Submit" class="submit-button">
+						<input type="submit" value="Submit" class="submit-button" style="margin-top: 230px;">
 					</form>
+
+					<% } %>
+
 				</main>
 			</div>
 
