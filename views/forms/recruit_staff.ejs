@@ -60,7 +60,7 @@
 						<input type="submit" value="Search" class="submit-button">
 					</form>
 
-					<% if(candInfo) { %>
+					<% if(candInfo && recruitIDList) { %>
 
 					<form method="post" class="form-box">
                         <div class="form-box-left">
@@ -72,7 +72,12 @@
 
                         <div class="form-box-right">
 							<label for="recruitID">Recruitment ID:</label>
-                            <input type="text" id="recruitID" name="recruitID" placeholder="Recruit ID" required>
+							<select id="recruitID" name="recruitID" required>
+								<% for(i=0; i<recruitIDList.length; i++) { %>
+									<option value="<%= recruitIDList[i] %>"><%= recruitIDList[i] %></option>
+								<% } %>
+							</select>
+                            <!-- <input type="text" id="recruitID" name="recruitID" placeholder="Recruit ID" required> -->
                         </div>
 
                         <p style="color: white; padding-top: 40px;">apply for</p>
