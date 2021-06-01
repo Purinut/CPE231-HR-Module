@@ -10,68 +10,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<link rel="stylesheet" type="text/css" href="/css/login.css">
+		<link rel="stylesheet" type="text/css" href="/css/forms.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-		<style>
-			.form-page {
-				background: #434343;
-				text-align: center;
-				color: #FFFFFF;
-				padding: 50px;
-				width: 50%;
-			}
-
-			.form-box {
-				margin-left: auto;
-				margin-right: auto;
-				width: 800px;
-				height: 400px;
-				padding: 0%;
-				/* border: 1px solid aqua; */
-			}
-
-			.form-box-left {
-				float: left;
-				width: 300px;
-				height: 150px;
-				padding: 0%;
-				/* border: 1px solid aqua; */
-			}
-
-			.form-box-right {
-				float: right;
-				width: 300px;
-				height: 150px;
-				padding: 0%;
-				/* border: 1px solid rebeccapurple; */
-			}
-
-			input, textarea {
-				width: 100%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			label {
-				width: 45%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			select {
-				width: 50%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			.submit-button {
-				align-self: center;
-				margin-top: 150px;
-				width: 90px;
-				background-color: #8091E7;
-				font-size: large;
-				color: #FFFFFF;
-			}
-		</style>
 	</head>
 
 
@@ -125,21 +65,22 @@
 
 					<form method="post" class="form-box">
 						<div class="form-box-left">
-							<label for="StaffID">StaffID:</label>
-							<input id="StaffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
-							<label for="Name">Name:</label>
-							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
-							<label for="Department">Department:</label>
-							<input id="Department" value="<%= staffInfo.departmentName %>" readonly>
-							<label for="Position">Position:</label>
-							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
+							<label for="staffID">Staff's ID:</label>
+							<input id="staffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
+							<label for="name">Name:</label>
+							<input id="name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
+							<label for="department">Department:</label>
+							<input id="department" value="<%= staffInfo.departmentName %>" readonly>
+							<label for="position">Position:</label>
+							<input id="position" value="<%= staffInfo.positionName %>" readonly>
 						</div>  
 
 						<div class="form-box-right">
-							<input type="text" name="courseID" placeholder="Course ID" required>
+							<label for="courseID">Course's ID:</label>
+							<input type="text" id="courseID" name="courseID" placeholder="Course ID" required>
 						</div>
 
-						<p style="color: white;">enroll in</p>
+						<p style="color: white; padding-top: 40px;">enroll in</p>
 						<% if(message) { %>
 							<% if(message.type == 'failed') { %>
 								<div class="alert-message"> 
@@ -151,7 +92,7 @@
 								</div>
 							<% } %>
 						<% } %>
-						<input type="submit" value="Submit" class="submit-button" style="margin-top: 230px;">
+						<input type="submit" value="Submit" class="submit-button" style="margin-top: 240px;">
 						
 					</form>
 

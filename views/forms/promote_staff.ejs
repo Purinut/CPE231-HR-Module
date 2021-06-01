@@ -9,79 +9,9 @@
 		<title>HR Management Module</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<link rel="stylesheet" type="text/css" href="/css/forms.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<style>
-			.form-page {
-				background: #434343;
-				text-align: center;
-				color: #FFFFFF;
-				padding: 50px;
-				width: 50%;
-			}
-
-			.form-box-mini {
-				margin-left: auto;
-				margin-right: auto;
-				width: 300px;
-                height: 150px;
-				padding: 0%;
-				/* border: 1px solid tomato; */
-			}
-
-            .form-box {
-				margin-left: auto;
-				margin-right: auto;
-				width: 800px;
-                height: 300px;
-				padding: 0%;
-				/* border: 1px solid springgreen; */
-			}
-
-			.form-box-left {
-				text-align: left;
-                float: left;
-				width: 300px;
-				height: 300px;
-				padding: 0%;
-				/* border: 1px solid blue; */
-			}
-
-            .form-box-right {
-				text-align: left;
-                float: right;
-				width: 300px;
-				height: 300px;
-				padding: 0%;
-                /* border: 1px solid rebeccapurple; */
-            }
-
-			input, textarea {
-				width: 100%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			label {
-				width: 45%;
-				margin-top: 10px;
-				margin-bottom: 0px;
-			}
-
-			select {
-				width: 100%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			.submit-button {
-				align-self: center;
-				width: 90px;
-				background-color: #8091E7;
-				font-size: large;
-				color: #FFFFFF;
-			}
-		</style>
 	</head>
 
 
@@ -135,14 +65,14 @@
 						
 					<form method="POST" class="form-box">
                         <div class="form-box-left">
-							<label for="StaffID">StaffID:</label>
-							<input id="StaffID" name="StaffID" value="<%= staffInfo.staffID %>" readonly>
-							<label for="Name">Name:</label>
-							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
-							<label for="Department">Department:</label>
-							<input id="Department" value="<%= staffInfo.departmentName %>" readonly>
-							<label for="Position">Position:</label>
-							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
+							<label for="staffID">Staff's ID:</label>
+							<input id="staffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
+							<label for="name">Name:</label>
+							<input id="name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
+							<label for="department">Department:</label>
+							<input id="department" value="<%= staffInfo.departmentName %>" readonly>
+							<label for="position">Position:</label>
+							<input id="position" value="<%= staffInfo.positionName %>" readonly>
                         </div>
 
                         <div class="form-box-right">
@@ -155,7 +85,6 @@
 							<select name="SelectPosition" id="SelectPosition">
 								<option>-</option>
 							</select>
-							<p>test: <span id="test"></span></p>
 							<p style="margin-top: 5px;">Promote Date: <span id="showCurDate"></span></p>
 							<input type="hidden" name="curDate" id="curDate">
                         </div>

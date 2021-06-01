@@ -9,49 +9,8 @@
 		<title>HR Management Module</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<link rel="stylesheet" type="text/css" href="/css/forms.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-		<style>
-			.form-page {
-				background: #434343;
-				text-align: center;
-				color: #FFFFFF;
-				padding: 50px;
-				width: 50%;
-			}
-
-			.form-box {
-				margin-left: auto;
-				margin-right: auto;
-				width: 300px;
-				padding: 0%;
-				/* border: 1px solid aqua; */
-			}
-
-			input, textarea {
-				width: 100%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			label {
-				width: 45%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			select {
-				width: 50%;
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
-
-			.submit-button {
-				width: 90px;
-				background-color: #8091E7;
-				font-size: large;
-				color: #FFFFFF;				
-			}
-		</style>
 	</head>
 
 
@@ -105,24 +64,24 @@
 		
 					<form method="post" class="form-box">
 						<div class="form-box-left">
-							<label for="StaffID">StaffID:</label>
-							<input id="StaffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
-							<label for="Name">Name:</label>
-							<input id="Name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
-							<label for="Department">Department:</label>
-							<input id="Department" value="<%= staffInfo.departmentName %>" readonly>
-							<label for="Position">Position:</label>
-							<input id="Position" value="<%= staffInfo.positionName %>" readonly>
+							<label for="staffID">Staff's ID:</label>
+							<input id="staffID" name="staffID" value="<%= staffInfo.staffID %>" readonly>
+							<label for="name">Name:</label>
+							<input id="name" value="<%= staffInfo.firstName %> <%= staffInfo.lastName %>" readonly>
+							<label for="department">Department:</label>
+							<input id="department" value="<%= staffInfo.departmentName %>" readonly>
+							<label for="position">Position:</label>
+							<input id="position" value="<%= staffInfo.positionName %>" readonly>
 						</div> 
 
-						<div class="form-box-right"></div>
+						<div class="form-box-right">
 							<label for="startDate">Start Date:</label>
-							<input type="date" id="startDate" name="startDate" style="width: 50%;" required><br>
+							<input type="date" id="startDate" name="startDate" required>
 							<label for="endDate">End Date:</label>
-							<input type="date" id="endDate" name="endDate" style="width: 50%;" required>
+							<input type="date" id="endDate" name="endDate" required>
 						</div> 
 						
-						<input type="submit" value="Submit" class="submit-button" style="margin-top: 230px;">
+						<input type="submit" value="Submit" class="submit-button" style="margin-top: 320px;">
 					</form>
 
 					<% } %>
