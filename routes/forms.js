@@ -42,6 +42,8 @@ router.get('/:form_type', isLoggined, function(req, res){
 	else if(req.params.form_type == 'recruit_staff'){
 		res.locals.candInfo = req.session.candInfo;
 		delete req.session.candInfo;
+		res.locals.recruitIDList = req.session.recruitIDList;
+		delete req.session.recruitIDList;
 		res.render('forms/recruit_staff',{userSession: userSession});
 	}
 })
@@ -594,7 +596,23 @@ function recruitStaff(req, res){
 							firstName: result[0].Staff_FirstName,
 							lastName: result[0].Staff_LastName
 						};
-						res.redirect('/forms/' + req.params.form_type);
+						try {
+							db.query(`SELECT Recruit_ID
+								FROM recruit_spec
+								ORDER BY Recruit_ID;`,
+								function(err, result2) {
+									let recruitIDList = [];
+									for(i=0; i<result2.length; i++) {
+										recruitIDList.push(result2[i].Recruit_ID);
+									}
+									req.session.recruitIDList = recruitIDList;
+									res.redirect('/forms/' + req.params.form_type);
+								}
+							)
+						} catch(err) {
+							console.log('query Recruit_ID error');
+							throw err;
+						}
 					} else {
 						console.log('empty query');
 						res.redirect('/forms/' + req.params.form_type);

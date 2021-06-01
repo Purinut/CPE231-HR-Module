@@ -19,26 +19,31 @@ router.post('/', function(req, res) {
 		try {
 			db.query('SELECT * FROM credential WHERE username = ? OR staff_ID = ?',[username, staffID], 
 			function(err, result) {
-				if(err){
+				if(err) {
 					console.log(err);
 					throw err;
 				}
-				if(result.length > 0){
+				if(result.length > 0) {
 					req.session.message = {
 						type: "failed",
 						message: "This username/ID has already used" };
 					res.redirect('/signup');
-				}else{
-					try{
-					db.query('SELECT Department_ID\
-							FROM promote_history p\
-							INNER JOIN(\
-								SELECT Staff_ID, MAX(Promote_Date) AS Recent_Date\
-								FROM promote_history GROUP BY Staff_ID\
-							) md ON p.Staff_ID = md.Staff_ID AND Promote_Date = Recent_Date\
-							WHERE md.Staff_ID = ?',[staffID], function(err, result){
+				} else {
+					try {
+					db.query(`SELECT Department_ID
+							FROM promote_history p
+							INNER JOIN(
+								SELECT Staff_ID, MAX(Promote_Date) AS Recent_Date
+								FROM promote_history GROUP BY Staff_ID
+							) md ON p.Staff_ID = md.Staff_ID AND Promote_Date = Recent_Date
+							WHERE md.Staff_ID = ?`,[staffID], function(err, result){
 								console.log(result);
-								if(result[0].Department_ID == 'DE001') {
+								if (result.length == 0) {
+									req.session.message = {
+										type: "failed",
+										message: "This ID is not in this company!" };
+									res.redirect('/signup');
+								} else if(result[0].Department_ID == 'DE001') {
 									const pwHash = bcrypt.hashSync(password, 10);
 									try {
 										db.query('INSERT INTO credential(Staff_ID, username, password) VALUES(?, ?, ?)', [staffID, username, pwHash], 
