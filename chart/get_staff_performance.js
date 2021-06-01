@@ -38,9 +38,6 @@ const getData = () =>{
 	  		score.push(result[i].Score);
 	  	}
 
-	  	console.log(department);
-		console.log(score);
-
 		data = {
 			department: department,
 			score: score

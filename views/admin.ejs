@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	</head>
 
 
@@ -140,16 +141,7 @@
 													<th scope="col">Score</th>
 												</tr>
 											</thead>
-											<tbody>
-												<% for(var i=1; i<=topPerf.id.length; i++) { %>
-													<tr>
-														<th scope="row"><%= i %></th>
-														<td><%= topPerf.id[i-1] %></td>
-														<td><%= topPerf.name[i-1] %></td>
-														<td><%= topPerf.dep[i-1] %> <br> <%= topPerf.pos[i-1] %> </td>
-														<td><%= topPerf.score[i-1] %></td>
-													</tr>
-												<% } %>
+											<tbody id="performanceContentTable">
 											</tbody>
 										</table>
 									</div>		
@@ -232,151 +224,189 @@
 			</div>
 
 
-
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="/js/scripts.js"></script>
 
 	<!-- Chart -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
-	<script type="text/javascript">
-		var obj = <%-JSON.stringify(petition) %>
-
-		var data = {
-		  labels: obj.labels,
-		  datasets: [{
-			label: 'Petition Amount',
-			data: obj.amount,
-			backgroundColor: [
-			  'rgba(255, 99, 132, 0.2)',
-			  'rgba(255, 159, 64, 0.2)',
-			  'rgba(255, 205, 86, 0.2)',
-			  'rgba(75, 192, 192, 0.2)',
-			  'rgba(54, 162, 235, 0.2)'
-			],
-			borderColor: [
-			  'rgb(255, 99, 132)',
-			  'rgb(255, 159, 64)',
-			  'rgb(255, 205, 86)',
-			  'rgb(75, 192, 192)',
-			  'rgb(54, 162, 235)'
-			],
-			borderWidth: 1
-		  }]
-		};
-
-		var config = {
-		  type: 'bar',
-		  data: data,
-		  options: {
-			scales: {
-			  y: {
-				beginAtZero: true
-			  }
-			}
-		  },
-		};
-
-
-		var barChart = new Chart(
-			document.getElementById('petitionAmount'),
-			config
-		);
-
-		var barChartMini = new Chart(
-			document.getElementById('petitionAmountMini'),
-			config
-		);
-	</script>
-
-	<script type="text/javascript">
-		var obj = <%- JSON.stringify(staffProp) %>
-
-		var data = {
-		  labels: obj.labels,
-		  datasets: [{
-			label: 'Staff Proportion',
-			data: obj.amount,
-			backgroundColor: [
-			  'rgb(255, 99, 132)',
-			  'rgb(54, 162, 235)',
-			  'rgb(255, 205, 86)'
-			],
-			hoverOffset: 4,
-		  }]
-		};
-
-		var config = {
-		  type: 'pie',
-		  data: data,
-		  options: {
-			radius: '45%',
-			offset: 0,
-		  }
-		};
-
-		var pieChart = new Chart(
-			document.getElementById('staffProportion'),
-			config
-		);
-
-	</script>
-
-	<script type="text/javascript">
-		var obj = <%-JSON.stringify(staffPerf) %>
-
-		var data = {
-		  labels: obj.department,
-		  datasets: [{
-			axis: 'y',
-			label: 'last month staff\'s performance',
-			data: obj.score,
-			fill: false,
-			backgroundColor: [
-			  'rgba(255, 99, 132, 0.2)',
-			  'rgba(255, 159, 64, 0.2)',
-			  'rgba(255, 205, 86, 0.2)'
-			],
-			borderColor: [
-			  'rgb(255, 99, 132)',
-			  'rgb(255, 159, 64)',
-			  'rgb(255, 205, 86)'
-			],
-			borderWidth: 1
-		  }]
-		};
-
-		var config = {
-		  type: 'line',
-		  data: data,
-		  options: {
-			indexAxis: 'y',
-			showLine: false,
-			pointRadius: 5,
-			scales: {
-			  x: {
-				beginAtZero: true,
-				grid: {
-					display: false
+	<script>
+		$(document).ready(function() {
+			var url = "/api/get_top_performance";
+			$.getJSON(url, function(top_data){
+				console.log(top_data)
+				for(var i=1; i <= top_data.id.length; i++){
+					$('#performanceContentTable').append(`<tr> 
+															<th scope="row">` + i + `</th>
+															<td>` + top_data.id[i-1] + `</td>
+															<td>` + top_data.name[i-1] + `</td>
+															<td>` + top_data.dep[i-1] + `<br>` + top_data.pos[i-1] + `</td>
+															<td>` + top_data.score[i-1] + `</td>
+														</tr>`);
 				}
-			  },
-			  y: {
-				offset: true
-			  }
-			}
-		  }
-		};
+				
+			})
+		})
+	</script>
 
-		var pointChart = new Chart(
-			document.getElementById('avgPerformance'),
-			config
-		);
+	<script type="text/javascript">
 
-		var pointChartMini = new Chart(
-			document.getElementById('avgPerformanceMini'),
-			config
-		);
+		$(document).ready(function() {
+			var url = "/api/get_petition_amount";
+			$.getJSON(url, function(petition_data){
+				console.log(petition_data);
+				var obj = petition_data;
+				var data = {
+				  labels: obj.labels,
+				  datasets: [{
+					label: 'Petition Amount',
+					data: obj.amount,
+					backgroundColor: [
+					  'rgba(255, 99, 132, 0.2)',
+					  'rgba(255, 159, 64, 0.2)',
+					  'rgba(255, 205, 86, 0.2)',
+					  'rgba(75, 192, 192, 0.2)',
+					  'rgba(54, 162, 235, 0.2)'
+					],
+					borderColor: [
+					  'rgb(255, 99, 132)',
+					  'rgb(255, 159, 64)',
+					  'rgb(255, 205, 86)',
+					  'rgb(75, 192, 192)',
+					  'rgb(54, 162, 235)'
+					],
+					borderWidth: 1
+				  }]
+				};
+
+				var config = {
+				  type: 'bar',
+				  data: data,
+				  options: {
+					scales: {
+					  y: {
+						beginAtZero: true
+					  }
+					}
+				  },
+				};
+				var barChart = new Chart(
+					document.getElementById('petitionAmount'),
+					config
+				);
+
+				var barChartMini = new Chart(
+					document.getElementById('petitionAmountMini'),
+					config
+				);
+			})
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var url = "/api/get_staff_proportion";
+
+			$.getJSON(url, function(prop_data){
+				var obj = prop_data
+
+				var data = {
+				  labels: obj.labels,
+				  datasets: [{
+					label: 'Staff Proportion',
+					data: obj.amount,
+					backgroundColor: [
+					  'rgb(255, 99, 132)',
+					  'rgb(54, 162, 235)',
+					  'rgb(255, 205, 86)'
+					],
+					hoverOffset: 4,
+				  }]
+				};
+
+				var config = {
+				  type: 'pie',
+				  data: data,
+				  options: {
+					radius: '45%',
+					offset: 0,
+				  }
+				};
+
+				var pieChart = new Chart(
+					document.getElementById('staffProportion'),
+					config
+				);
+			})
+
+		})
+		
+
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var url = "/api/get_staff_performance"
+
+			$.getJSON(url, function(avg_perf_data){
+				console.log(avg_perf_data);
+				var obj = avg_perf_data;
+
+				var data = {
+				  labels: obj.department,
+				  datasets: [{
+					axis: 'y',
+					label: 'last month staff\'s performance',
+					data: obj.score,
+					fill: false,
+					backgroundColor: [
+					  'rgba(255, 99, 132, 0.2)',
+					  'rgba(255, 159, 64, 0.2)',
+					  'rgba(255, 205, 86, 0.2)'
+					],
+					borderColor: [
+					  'rgb(255, 99, 132)',
+					  'rgb(255, 159, 64)',
+					  'rgb(255, 205, 86)'
+					],
+					borderWidth: 1
+				  }]
+				};
+
+				var config = {
+				  type: 'line',
+				  data: data,
+				  options: {
+					indexAxis: 'y',
+					showLine: false,
+					pointRadius: 5,
+					scales: {
+					  x: {
+						beginAtZero: true,
+						grid: {
+							display: false
+						}
+					  },
+					  y: {
+						offset: true
+					  }
+					}
+				  }
+				};
+
+				var pointChart = new Chart(
+					document.getElementById('avgPerformance'),
+					config
+				);
+
+				var pointChartMini = new Chart(
+					document.getElementById('avgPerformanceMini'),
+					config
+				);
+			})
+		})
+
+		
 	</script>
 
 	</body>

@@ -175,7 +175,6 @@
 			var url = "/api/deptPost";
 
 			$.getJSON(url, function(data){
-				console.log(data);
 				$.each(data, function(index, value){
 					$("#SelectDepartment").append('<option value="' + value.Department_ID + '">' + value.Department_Name + '</option>');
 				});
@@ -183,13 +182,11 @@
 
 			$('#SelectDepartment').change(function() {
 				var deptID = this.options[this.selectedIndex].value;
-				console.log(deptID);
 
 				$('#SelectPosition').empty();
 
 				var url = "/api/deptPost/" + deptID;
 				$.getJSON(url, function(data){
-					console.log(data);
 					$.each(data, function(index, value){
 						$('#SelectPosition').append('<option value="' + value.Position_ID + '">' + value.Position_Name + '</option>');
 					})
