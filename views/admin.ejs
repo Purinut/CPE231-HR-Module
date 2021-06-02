@@ -93,7 +93,7 @@
 								<div class="card mb-4">
 									<div class="card-header">
 										<i class="fas fa-chart-area mr-1"></i>
-										Average Performance For Each Department
+										Average performance for each department
 									</div>
 									<div class="card-body"><canvas id="avgPerformanceMini" width="100%" height="40"></canvas></div>
 								</div>
@@ -102,7 +102,7 @@
 								<div class="card mb-4">
 									<div class="card-header">
 										<i class="fas fa-chart-bar mr-1"></i>
-										Petition Amount
+										Petition amount of last five months
 									</div>
 									<div class="card-body"><canvas id="petitionAmountMini" width="100%" height="40"></canvas></div>
 								</div>
@@ -114,7 +114,7 @@
 								<div class="card mb-4">
 									<div class="card-header">
 										<i class="fas fa-chart-bar mr-1"></i>
-										Staff Proportion
+										Staff proportion by department
 									</div>
 									<div class="card-body">
 										<div width="100%">
@@ -128,7 +128,7 @@
 
 								<div class="card mb-4" id="topPerformanceStaff">
 									<div class="card-header">
-										Top Performance Staff
+										Top Performance Staff in the last month
 									</div>
 									<div class="card-body">
 										<table class="table table-hover table-striped table-bordered table-sm">
@@ -153,7 +153,7 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<i class="fas fa-chart-bar mr-1"></i>
-								Average Performance For Each Department
+								Average performance for each department
 							</div>
 							<div class="card-body"><canvas id="avgPerformance" width="100%" height="40"></canvas></div>
 						</div>
@@ -163,7 +163,7 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<i class="fas fa-chart-bar mr-1"></i>
-								Petition Amount
+								Petition amount of last five months
 							</div>
 							<div class="card-body"><canvas id="petitionAmount" width="100%" height="40"></canvas></div>
 						</div>
@@ -175,7 +175,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="col">
-									<p>Add new staff infomation</p>
+									<p>Add new staff/candidate information</p>
 								</div>
 								<div class="col">
 									<button id="form_add_staff" onclick="location.href='/users/forms/add_staff'" class="btn btn-outline-info">Add New People</button>
@@ -184,7 +184,7 @@
 
 							<div class="row">
 								<div class="col">
-									<p>Promote Staff to the new department/position</p>
+									<p>Promote staff to the new department/position</p>
 								</div>
 								<div class="col">
 									<button id="form_promote_staff" onclick="location.href='/users/forms/promote_staff'" class="btn btn-outline-info">Promote Staff</button>
@@ -193,7 +193,7 @@
 
 							<div class="row">
 								<div class="col">
-									<p>Write Petition</p>
+									<p>Write petition</p>
 								</div>
 								<div class="col">
 									<button id="form_add_petition" onclick="location.href='/users/forms/add_petition'" class="btn btn-outline-info">Add Petition</button>
@@ -287,6 +287,11 @@
 					  y: {
 						beginAtZero: true
 					  }
+					},
+					plugins: {
+						legend: {
+							display: false
+						},
 					}
 				  },
 				};
@@ -390,6 +395,11 @@
 					  y: {
 						offset: true
 					  }
+					},
+					plugins: {
+						legend: {
+							display: false
+						},
 					}
 				  }
 				};

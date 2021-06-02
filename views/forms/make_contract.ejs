@@ -104,6 +104,11 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
+			var today = new Date();
+			var today_format = today.getFullYear() + '-' + ('0'+ (today.getMonth()+1)).slice(-2) + '-' +('0'+ today.getDate()).slice(-2);
+			console.log(today_format);
+			$("#startDate").attr('min', today_format);
+
 			$('#startDate').change(function(){
 				var startDate = $('#startDate').val();
 				$('#endDate').attr('min', startDate);
