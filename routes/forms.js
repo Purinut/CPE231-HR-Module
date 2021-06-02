@@ -614,15 +614,20 @@ function recruitStaff(req, res){
 						console.log(err);
 						throw err;
 					} else if(result.length == 1) {
+						const candID = result[0].Staff_ID;
 						req.session.candInfo = {
-							candID: result[0].Staff_ID,
+							candID: candID,
 							firstName: result[0].Staff_FirstName,
 							lastName: result[0].Staff_LastName
 						};
 						try {
 							db.query(`SELECT Recruit_ID
 								FROM recruit_spec
-								ORDER BY Recruit_ID;`,
+								WHERE Recruit_ID NOT IN
+									(SELECT Recruit_ID
+									FROM recruit_apply
+									WHERE Staff_ID = ?)
+								ORDER BY Recruit_ID;`, [candID],
 								function(err, result2) {
 									let recruitIDList = [];
 									for(i=0; i<result2.length; i++) {
