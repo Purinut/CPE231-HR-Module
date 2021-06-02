@@ -1,7 +1,2 @@
-> enroll_course backend remove check
-
-
-> add message to each form
-
 business rules
 > รับ candidate ต้องเปลี่ยน ID ก่อน -> promote เข้าตำแหน่งที่รับ -> make contract

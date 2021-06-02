@@ -9,6 +9,7 @@
 		<title>HR Management Module</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<link rel="stylesheet" type="text/css" href="/css/login.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 		<style>
 			.form-page {
@@ -58,7 +59,7 @@
 
 	<body class="sb-nav-fixed">
 		<nav class="sb-topnav navbar navbar-expand navbar-dark">
-			<a class="navbar-brand" href="index.html">Human Resource<br><span class="small">Department</span></a>
+			<a class="navbar-brand" href="/users">Human Resource<br><span class="small">Department</span></a>
 			<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 			
 			<!-- Navbar -->
@@ -103,6 +104,19 @@
 						<textarea name="content" rows="6" cols="30" placeholder="Add Petition Here" required></textarea></br></br>
 						<input type="submit" value="Submit" class="submit-button">
 					</form>
+
+					<% if(message) { %>
+						<% if(message.type == 'failed') { %>
+							<div class="alert-message"> 
+							  <strong><%= message.message %></strong>
+							</div>
+					 	<% } else if(message.type == 'success') { %>
+						  	<div class="success-message"> 
+							  <strong><%= message.message %></strong>
+							</div>
+						<% } %>
+					<% } %>
+
 				</main>
 			</div>
 
