@@ -450,8 +450,9 @@ function enrollCourse(req, res){
 						console.log(err);
 						throw err;
 					} else if(result.length == 1) {
+						const staffID = result[0].Staff_ID
 						req.session.staffInfo = {
-							staffID: result[0].Staff_ID,
+							staffID: staffID,
 							firstName: result[0].Staff_FirstName,
 							lastName: result[0].Staff_LastName,
 							departmentID: result[0].Department_ID,
@@ -462,10 +463,13 @@ function enrollCourse(req, res){
 						try {
 							db.query(`SELECT Course_ID, Course_Name
 								FROM train_course
-								WHERE Status IN
-									('InProgress', 'InComing') AND
-									Course_Seat > 0
-								ORDER BY Course_Name;`,
+								WHERE Status IN ('InProgress', 'InComing')
+									AND Course_Seat > 0
+									AND Course_ID NOT IN
+										(SELECT Course_ID
+										FROM enroll_course
+										WHERE Staff_ID = ?)
+								ORDER BY Course_Name;`, [staffID],
 								function(err, result) {
 									let courseList = [];
 									for(i=0; i<result.length; i++) {
@@ -591,15 +595,20 @@ function recruitStaff(req, res){
 						console.log(err);
 						throw err;
 					} else if(result.length == 1) {
+						const candID = result[0].Staff_ID;
 						req.session.candInfo = {
-							candID: result[0].Staff_ID,
+							candID: candID,
 							firstName: result[0].Staff_FirstName,
 							lastName: result[0].Staff_LastName
 						};
 						try {
 							db.query(`SELECT Recruit_ID
 								FROM recruit_spec
-								ORDER BY Recruit_ID;`,
+								WHERE Recruit_ID NOT IN
+									(SELECT Recruit_ID
+									FROM recruit_apply
+									WHERE Staff_ID = ?)
+								ORDER BY Recruit_ID;`, [candID],
 								function(err, result2) {
 									if(err) throw err;
 									let recruitIDList = [];
