@@ -12,9 +12,6 @@ const isLoggined = function(req, res, next) {
 router.get('/', isLoggined, function(req, res){
 	const userSession = req.session;
 
-	let rawTopPerf = fs.readFileSync('top_performance.json');
-	let topPerf = JSON.parse(rawTopPerf);
-
 	if(req.session.depID == 'DE001' && req.session.posID == 'PO002'){
 		res.render('admin',{userSession: userSession});
 	} 
